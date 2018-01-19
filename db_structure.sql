@@ -75,20 +75,24 @@ ALTER SEQUENCE boxes_coordinate_image_id_seq OWNED BY boxes_coordinate.image_id;
 --
 
 CREATE TABLE dots_coordinate (
-    coordinate_id smallint NOT NULL,
+    coordinate_id bigint NOT NULL,
     image_id bigint NOT NULL,
     x smallint,
-    y smallint
+    y smallint,
+    userin character varying,
+    datein timestamp without time zone,
+    userup character varying,
+    dateup timestamp without time zone
 );
 
 
 ALTER TABLE dots_coordinate OWNER TO postgres;
 
 --
--- Name: dots_coordinate_image_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+-- Name: dots_coordinate_coordinate_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
-CREATE SEQUENCE dots_coordinate_image_id_seq
+CREATE SEQUENCE dots_coordinate_coordinate_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -96,13 +100,13 @@ CREATE SEQUENCE dots_coordinate_image_id_seq
     CACHE 1;
 
 
-ALTER TABLE dots_coordinate_image_id_seq OWNER TO postgres;
+ALTER TABLE dots_coordinate_coordinate_id_seq OWNER TO postgres;
 
 --
--- Name: dots_coordinate_image_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+-- Name: dots_coordinate_coordinate_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
-ALTER SEQUENCE dots_coordinate_image_id_seq OWNED BY dots_coordinate.image_id;
+ALTER SEQUENCE dots_coordinate_coordinate_id_seq OWNED BY dots_coordinate.image_id;
 
 
 --
@@ -140,6 +144,13 @@ ALTER SEQUENCE images_image_id_seq OWNED BY images.image_id;
 
 
 --
+-- Name: coordinate_id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY dots_coordinate ALTER COLUMN coordinate_id SET DEFAULT nextval('dots_coordinate_coordinate_id_seq'::regclass);
+
+
+--
 -- Name: image_id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -159,7 +170,7 @@ ALTER TABLE ONLY boxes_coordinate
 --
 
 ALTER TABLE ONLY dots_coordinate
-    ADD CONSTRAINT dots_coordinate_pkey PRIMARY KEY (coordinate_id, image_id);
+    ADD CONSTRAINT dots_coordinate_pkey PRIMARY KEY (coordinate_id);
 
 
 --
