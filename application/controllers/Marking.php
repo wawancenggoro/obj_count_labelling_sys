@@ -1,10 +1,11 @@
-<?php
+<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 class Marking extends CI_Controller {
 
 	function __construct(){
 		parent::__construct();		
 		$this->load->model('db_connect');
 		$this->load->helper('url');
+		$this->load->library('session');
  
 	}
 
@@ -26,6 +27,8 @@ class Marking extends CI_Controller {
 		$x = $this->input->post('x');
 		$y = $this->input->post('y');
 		$userin = $this->input->post('userin');
+		// $userin = $_SESSION['username'];
+		// $userin = $this->session->username;
  
 		$data = array(
 			'image_id' => $image_id,

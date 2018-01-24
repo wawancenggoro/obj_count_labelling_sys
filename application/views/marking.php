@@ -12,6 +12,8 @@ $(document).ready(function(){
     else if ($('input[name=tools]:checked').val()=="delete"){
         $("#marked-img").css('cursor','default');
     }
+
+    var username = '<?php echo $_SESSION['username'] ?>';
     
     $("#img-container").click(function (ev) {  
         if ($('input[name=tools]:checked').val()=="add"){
@@ -55,7 +57,7 @@ $(document).ready(function(){
                 image_id: 1,
                 x: $(this).attr('x'),
                 y: $(this).attr('y'),
-                userin: 'wcenggoro'
+                userin: username
             });
         });
 
@@ -94,7 +96,6 @@ $(document).ready(function(){
   <br/>
   <button id="button-save" type="button">Save</button> 
 </form>
-
 </body>
 
 

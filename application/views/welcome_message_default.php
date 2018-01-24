@@ -68,31 +68,22 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <body>
 
 <div id="container">
-	<h1>Login</h1>
+	<h1>Welcome to CodeIgniter!</h1>
 
 	<div id="body">
-		<form action="index.php/main/login" method="post">
-			<table>
-				<tr>
-					<td>Username</td>
-					<td>:</td>
-					<td><input type="text" name="username"></td>
-				</tr>
-				<tr>
-					<td>Password</td>
-					<td>:</td>
-					<td><input type="password" name="password"></td>
-				</tr>
-				<tr>
-					<td colspan="3">
-						<input type="submit" name="submit" value="Login">
-					</td>
-				</tr>
-			</table>
-		</form>
+		<p>The page you are looking at is being generated dynamically by CodeIgniter.</p>
+
+		<p>If you would like to edit this page you'll find it located at:</p>
+		<code>application/views/welcome_message.php</code>
+
+		<p>The corresponding controller for this page is found at:</p>
+		<code>application/controllers/Welcome.php</code>
+
+		<p>If you are exploring CodeIgniter for the very first time, you should start by reading the <a href="user_guide/">User Guide</a>.</p>
 	</div>
 
 	<p class="footer">Page rendered in <strong>{elapsed_time}</strong> seconds. <?php echo  (ENVIRONMENT === 'development') ?  'CodeIgniter Version <strong>' . CI_VERSION . '</strong>' : '' ?></p>
 </div>
+
 </body>
 </html>
