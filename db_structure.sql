@@ -29,6 +29,18 @@ COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
 
 SET search_path = public, pg_catalog;
 
+--
+-- Name: roles; Type: TYPE; Schema: public; Owner: postgres
+--
+
+CREATE TYPE roles AS ENUM (
+    'user',
+    'admin'
+);
+
+
+ALTER TYPE roles OWNER TO postgres;
+
 SET default_tablespace = '';
 
 SET default_with_oids = false;
@@ -144,6 +156,19 @@ ALTER SEQUENCE images_image_id_seq OWNED BY images.image_id;
 
 
 --
+-- Name: users; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE users (
+    username character varying NOT NULL,
+    password_hash character varying,
+    role roles
+);
+
+
+ALTER TABLE users OWNER TO postgres;
+
+--
 -- Name: coordinate_id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -179,6 +204,14 @@ ALTER TABLE ONLY dots_coordinate
 
 ALTER TABLE ONLY images
     ADD CONSTRAINT images_pkey PRIMARY KEY (image_id);
+
+
+--
+-- Name: users_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY users
+    ADD CONSTRAINT users_pkey PRIMARY KEY (username);
 
 
 --
