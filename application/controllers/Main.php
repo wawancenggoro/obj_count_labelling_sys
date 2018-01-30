@@ -113,7 +113,8 @@ class Main extends CI_Controller {
         $config['upload_path']          = './images/';
         $config['allowed_types']        = 'gif|jpg|png';
         $config['encrypt_name'] = FALSE; //buat crypted nama foto
-               
+        $now = new DateTime("Asia/Jakarta");
+        
         $this->load->library('upload', $config);
         if(!$this->upload->do_upload('userfile')){
                $error = array('error' => $this->upload->display_errors());
@@ -122,7 +123,7 @@ class Main extends CI_Controller {
         else{
             $data = array('upload_data' =>$this->upload->data()); //insert ke folder images
             $data_upload =  array('image_name' => $this->upload->data("file_name"), //insert ke DB
-				          'path' => $this->upload->data("full_path")        
+				          'dateup' => $now->format('Y-m-d H:i:s')   
             ); 
             $this->load->view('upload_success', $data);
             $this->load->model('main_model');
