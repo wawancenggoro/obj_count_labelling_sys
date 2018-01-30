@@ -38,6 +38,14 @@
 			$this->load->database("");
 			$r=$this->db->get($a);
 			return $r->result();
+		}
+
+		function get_random_image($a)
+		{
+		    $this->db->order_by('id', 'RANDOM');
+		    $this->db->limit(1);
+		    $query = $this->db->get($a);
+		    return $query->result();
 
 		}
 			

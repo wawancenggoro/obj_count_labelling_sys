@@ -134,8 +134,40 @@ class Main extends CI_Controller {
     	$this->load->model('main_model');
     	$a['data']=$this->main_model->get_data("images");
     	$this->load->view('display_image_view',$a);
-
     }
+
+    public function view_marking($page = 'marking')
+    {
+    	if ( ! file_exists(APPPATH.'views/'.$page.'.php'))
+        {
+                // Whoops, we don't have a page for that!
+                show_404();
+        }
+
+        //$data['title'] = ucfirst($page); // Capitalize the first letter
+        $this->load->model('main_model');
+    	$a['data']=$this->main_model->get_random_image("images");
+        $this->load->view($page, $a);
+    }
+
+    public function insert_dot(){
+		$image_id = $this->input->post('image_id');
+		$x = $this->input->post('x');
+		$y = $this->input->post('y');
+		$userin = $this->input->post('userin');
+		// $userin = $_SESSION['username'];
+		// $userin = $this->session->username;
+ 
+		$data = array(
+			'image_id' => $image_id,
+			'x' => $x,
+			'y' => $y,
+			'userin' => $userin
+			);
+		$this->db_connect->set('datein', 'NOW()', FALSE);
+		$this->db_connect->insert('dots_coordinate',$data);
+		// redirect('marking/view');
+	}
 
     
 }

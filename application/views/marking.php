@@ -13,8 +13,8 @@ $(document).ready(function(){
         $("#marked-img").css('cursor','default');
     }
 
-    //var username = '<?php //echo $_SESSION['username'] ?>';
-    var username = 'admin_proxy'
+    var username = '<?php echo $_SESSION['username'] ?>';
+    //var username = 'admin_proxy'
     
     $("#img-container").click(function (ev) {  
         if ($('input[name=tools]:checked').val()=="add"){
@@ -85,9 +85,21 @@ $(document).ready(function(){
 <div style='float: left; width: 20px; height:560px; margin-right: 10px; background-color: lightblue; text-align: center; vertical-align: center; writing-mode: vertical-lr; text-orientation: upright;'>Banner Left</div>
 
 <div id='img-container' style='float:left;width:560px;height:560px;'>
-    <img id='marked-img' src='../../images/DJI_0375.JPG' width="560" height="560">
+    <?php foreach ($data as $va) {?>
+        <tr>
+            <td>
+                <img src="../../images/<?php echo $va->image_name;?>" width="560" height="560">
+            </td>
+        </tr>   
 </div>
+<tr>
+    <td>id : <?php echo $va->image_id;?></td>
+    <br>
+    <td>image_name : <?php echo $va->image_name;?></td>      
 
+
+</tr>
+<?php } ?>
 <div>X: <span id='x-coordinate'></span></div>
 <div>Y: <span id='y-coordinate'></span></div>
 <form action="">

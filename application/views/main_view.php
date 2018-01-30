@@ -15,7 +15,7 @@ echo '<h2>Welcome-'.$this->session->userdata('username').'</h2>';
 echo '<label><a href ="'.base_url().'main/logout">Logout</a></label>';
 ?>			
 <br><br>
-<a href="../marking/view">Mark Image</a>
+<a href="../main/view_marking">Mark Image</a>
 <br>
 <a href="../main/display_image">Display Image</a>
 <br>
