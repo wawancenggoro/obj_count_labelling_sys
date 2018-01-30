@@ -49,7 +49,7 @@ class Main extends CI_Controller {
 	 
 			$this->session->set_userdata($data_session);
 	 
-			redirect("main/index");
+			header("Location: http://localhost/obj_count_labelling_sys/index.php/main/index");
 		}else{
 			echo "Incorrect username or password";
 		}
@@ -58,6 +58,6 @@ class Main extends CI_Controller {
 
 	function logout(){
 		$this->session->sess_destroy();
-		redirect(base_url());
+		header("Location: http://localhost/obj_count_labelling_sys/");
 	}
 }
