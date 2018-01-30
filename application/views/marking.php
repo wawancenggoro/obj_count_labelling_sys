@@ -13,7 +13,8 @@ $(document).ready(function(){
         $("#marked-img").css('cursor','default');
     }
 
-    var username = '<?php echo $_SESSION['username'] ?>';
+    //var username = '<?php //echo $_SESSION['username'] ?>';
+    var username = 'admin_proxy'
     
     $("#img-container").click(function (ev) {  
         if ($('input[name=tools]:checked').val()=="add"){
@@ -52,7 +53,7 @@ $(document).ready(function(){
 
     $("#button-save").click(function (ev) { 
         $( ".marker" ).each(function() {
-            $.post("http://localhost/ggp/index.php/marking/insert",
+            $.post("http://localhost/obj_count_labelling_sys-codeigniter/index.php/marking/insert",
             {
                 image_id: 1,
                 x: $(this).attr('x'),
