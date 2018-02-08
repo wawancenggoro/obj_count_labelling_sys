@@ -31,6 +31,8 @@ class Main extends CI_Controller {
 
 	public function index()
 	{
+		// echo 'test';
+		// die();
 		redirect(base_url().'main/login');
 		//$this->load->view("login_view",$data);
 	}
@@ -94,9 +96,7 @@ class Main extends CI_Controller {
 		else{
 			//false
 			$this->login();
-		}
-
-		
+		}	
 
 	}
 

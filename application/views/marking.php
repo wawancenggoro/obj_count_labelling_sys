@@ -7,7 +7,7 @@
 <script>
 $(document).ready(function(){ 
     if ($('input[name=tools]:checked').val()=="add"){
-        $("#marked-img").css('cursor','crosshair');
+        $("#img-container").css('cursor','crosshair');
     }
     else if ($('input[name=tools]:checked').val()=="delete"){
         $("#marked-img").css('cursor','default');
