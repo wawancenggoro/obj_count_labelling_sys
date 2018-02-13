@@ -40,11 +40,32 @@
 			return $r->result();
 		}
 
-		function get_random_image($a)
+		function get_random_image($username)
 		{
-		    $this->db->order_by('id', 'RANDOM');
-		    $this->db->limit(1);
-		    $query = $this->db->get($a);
+		    // $this->db->order_by('id', 'RANDOM');
+		    // $this->db->limit(1);
+		    // $query = $this->db->get($a);
+
+		    $sql = '
+		    	SELECT img.image_id, img.image_name, usr.userin,
+		    		COUNT(DISTINCT dcr.image_id) AS cnt_lbl
+		    	FROM images img
+		    	LEFT JOIN (
+		    		SELECT DISTINCT image_id, userin 
+		    		FROM dots_coordinate
+		    		WHERE userin = \'$username\'
+		    	) usr
+		    		on img.image_id = usr.image_id
+		    	LEFT JOIN dots_coordinate dcr 
+		    		ON img.image_id = dcr.image_id
+		    	GROUP BY img.image_id, img.image_name, usr.userin
+		    	HAVING usr.userin IS NULL
+		    	ORDER BY cnt_lbl
+		    	LIMIT 1
+		    	';
+		    $query = $this->db->query($sql);
+
+
 		    return $query->result();
 
 		}

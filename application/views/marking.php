@@ -55,7 +55,7 @@ $(document).ready(function(){
         $( ".marker" ).each(function() {
             $.post("http://localhost/obj_count_labelling_sys-codeigniter/index.php/marking/insert",
             {
-                image_id: 1,
+                image_id: $("#image_id").text(),
                 x: $(this).attr('x'),
                 y: $(this).attr('y'),
                 userin: username
@@ -93,7 +93,7 @@ $(document).ready(function(){
         </tr>   
 </div>
 <tr>
-    <td>id : <?php echo $va->image_id;?></td>
+    <td>id : <span id='image_id'><?php echo $va->image_id;?></span></td>
     <br>
     <td>image_name : <?php echo $va->image_name;?></td>      
 
