@@ -49,6 +49,12 @@ class Main extends CI_Controller {
 		$this->load->view("main_view",$data);
 	}
 
+	public function main_admin()
+	{
+		$data['title'] = 'Main Menu';
+		$this->load->view("main_admin_view",$data);
+	}
+
 	public function register()
 	{
 		$data['title'] = 'Register Menu';
@@ -80,12 +86,21 @@ class Main extends CI_Controller {
 			$username = $this->input->post('username');
 			$password = $this->input->post('password');
 			$this->load->model('main_model');
-			if($this->main_model->can_login($username,$password)){
+			$user = $this->main_model->can_login($username,$password);
+			// print_r($user[0]->role);
+			// die();
+			
+			if($user){
 					$session_data=array(
 						'username' => $username
 					);
 					$this->session->set_userdata($session_data);
-					redirect(base_url().'main/main');
+					if($user[0]->role=='staff'){
+						redirect(base_url().'main/main');
+					} 
+					else if($user[0]->role=='admin'){
+						redirect(base_url().'main/main_admin');
+					}
 			}
 			else{
 				$this->session->set_flashdata('error','Invalid username and password');

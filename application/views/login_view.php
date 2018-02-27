@@ -29,7 +29,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				<br>
 				<div class="form-group">
 					<input type="submit" name="insert" value="Login" class ="btn btn-info"/>
-					<a href="../main/register">Register</a>
+					<a href="index.php?/main/register">Register</a>
 					<?php
 					echo $this->session->flashdata("error");
 					?>

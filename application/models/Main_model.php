@@ -11,7 +11,7 @@
 			$query = $this->db->get('users');
 
 			if($query->num_rows()>0){
-				return true;
+				return $query->result();
 			}
 			else{
 				return false;
