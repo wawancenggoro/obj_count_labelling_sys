@@ -55,6 +55,18 @@ class Main extends CI_Controller {
 		$this->load->view("main_admin_view",$data);
 	}
 
+	public function user_stat()
+	{
+		$data['title'] = 'User Statistics';
+		$this->load->view("user_stat_view",$data);
+	}
+
+	public function image_stat()
+	{
+		$data['title'] = 'Image Statistics';
+		$this->load->view("image_stat_view",$data);
+	}
+
 	public function register()
 	{
 		$data['title'] = 'Register Menu';
