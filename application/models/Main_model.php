@@ -67,7 +67,23 @@
 
 
 		    return $query->result();
+		}
 
+		function get_all_image_name(){
+			$username='staff';
+			$sql = "
+				SELECT image_name FROM images where image_id in (SELECT DISTINCT image_id FROM dots_coordinate WHERE userin ='$username')
+			";
+			$query = $this->db->query($sql);
+			return $query->result();
+		}
+
+		function get_all_username(){
+			$sql = '
+				SELECT username FROM users
+			';
+			$query = $this->db->query($sql);
+			return $query->result();
 		}
 			
 	}
