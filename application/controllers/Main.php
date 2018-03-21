@@ -1,8 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-
 class Main extends CI_Controller {
-
 	/**
 	 * Index Page for this controller.
 	 *
@@ -18,7 +16,6 @@ class Main extends CI_Controller {
 	 * map to /index.php/welcome/<method_name>
 	 * @see https://codeigniter.com/user_guide/general/urls.html
 	 */
-
 	function __construct(){
 		parent::__construct();		
 		$this->load->model('db_connect');
@@ -28,7 +25,6 @@ class Main extends CI_Controller {
 		$this->load->library('session');
  
 	}
-
 	public function index()
 	{
 		// echo 'test';
@@ -36,48 +32,44 @@ class Main extends CI_Controller {
 		redirect(base_url().'main/login');
 		//$this->load->view("login_view",$data);
 	}
-
 	public function login()
 	{
 		$data['title'] = 'Login';
 		$this->load->view("login_view",$data);
 	}
-
 	public function main()
 	{
 		$data['title'] = 'Main Menu';
 		$this->load->view("main_view",$data);
 	}
-
 	public function main_admin()
 	{
 		$data['title'] = 'Main Menu';
 		$this->load->view("main_admin_view",$data);
 	}
-
 	public function user_stat()
 	{
 		$data['title'] = 'User Statistics';
+		$this->load->model('main_model');
+    	$data['image_name']=$this->main_model->get_all_image_name();
+    	$data['all_username']=$this->main_model->get_all_username();
 		$this->load->view("user_stat_view",$data);
+		
 	}
-
 	public function image_stat()
 	{
 		$data['title'] = 'Image Statistics';
 		$this->load->view("image_stat_view",$data);
 	}
-
 	public function register()
 	{
 		$data['title'] = 'Register Menu';
 		$this->load->view("register_view",$data);
 	}
-
 	public function display_image()
 	{
 		redirect(base_url().'main/displayImage');
 	}
-
 	public function register_data(){
 		$username = $this->input->post('username');
 		$password = $this->input->post('password');
@@ -85,9 +77,7 @@ class Main extends CI_Controller {
 		$this->load->model('main_model');
 		$this->main_model->register($username,$password,$role);	
 		redirect(base_url().'main/login');
-
 	}
-
 	public function login_validation()
 	{
 		$this->load->library('form_validation');
@@ -118,24 +108,19 @@ class Main extends CI_Controller {
 				$this->session->set_flashdata('error','Invalid username and password');
 				redirect(base_url().'main/login');
 			}
-
 		}
 		else{
 			//false
 			$this->login();
 		}	
-
 	}
-
 	function logout(){
 		$this->session->unset_userdata('username');
 		redirect(base_url().'main/login');
 	}
-
 	public function upload_image(){
 		$this->load->view('upload_image_view', array('error' => ' ' ));
 	}
-
 	public function do_upload(){
         $config['upload_path']          = './images/';
         $config['allowed_types']        = 'gif|jpg|png';
@@ -157,13 +142,11 @@ class Main extends CI_Controller {
             $this->main_model->File_upload($data_upload); //insert ke DB
         }
     }
-
     public function displayImage(){
     	$this->load->model('main_model');
     	$a['data']=$this->main_model->get_data("images");
     	$this->load->view('display_image_view',$a);
     }
-
     public function view_marking($page = 'marking')
     {
     	if ( ! file_exists(APPPATH.'views/'.$page.'.php'))
@@ -171,13 +154,11 @@ class Main extends CI_Controller {
                 // Whoops, we don't have a page for that!
                 show_404();
         }
-
         //$data['title'] = ucfirst($page); // Capitalize the first letter
         $this->load->model('main_model');
     	$a['data']=$this->main_model->get_random_image("images");
         $this->load->view($page, $a);
     }
-
     public function insert_dot(){
 		$image_id = $this->input->post('image_id');
 		$x = $this->input->post('x');
@@ -196,6 +177,6 @@ class Main extends CI_Controller {
 		$this->db_connect->insert('dots_coordinate',$data);
 		// redirect('marking/view');
 	}
-
     
+
 }
