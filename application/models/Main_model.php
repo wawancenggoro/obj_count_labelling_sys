@@ -85,6 +85,15 @@
 			$query = $this->db->query($sql);
 			return $query->result();
 		}
+
+		function get_all_dots_count_data($username){
+			$sql = "
+				SELECT * FROM dots_count where username = '$username'
+			";
+			$query = $this->db->query($sql);
+			return $query->result();
+
+		}
 			
 	}
 
