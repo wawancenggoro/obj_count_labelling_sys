@@ -251,8 +251,23 @@ SELECT pg_catalog.setval('public.dots_coordinate_coordinate_id_seq', 55, true);
 -- Data for Name: dots_count; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO public.dots_count VALUES ('staff', 1, 2);
-INSERT INTO public.dots_count VALUES ('staff', 2, 4);
+INSERT INTO public.dots_count VALUES ('staff', 1, 10);
+INSERT INTO public.dots_count VALUES ('staff', 2, 12);
+INSERT INTO public.dots_count VALUES ('staff', 3, 13);
+INSERT INTO public.dots_count VALUES ('staff', 4, 10);
+INSERT INTO public.dots_count VALUES ('staff', 5, 15);
+
+INSERT INTO public.dots_count VALUES ('user1', 1, 9);
+INSERT INTO public.dots_count VALUES ('user1', 2, 0);
+INSERT INTO public.dots_count VALUES ('user1', 3, 0);
+INSERT INTO public.dots_count VALUES ('user1', 4, 8);
+INSERT INTO public.dots_count VALUES ('user1', 5, 15);
+
+INSERT INTO public.dots_count VALUES ('user2', 1, 10);
+INSERT INTO public.dots_count VALUES ('user2', 2, 12);
+INSERT INTO public.dots_count VALUES ('user2', 3, 15);
+INSERT INTO public.dots_count VALUES ('user2', 4, 0);
+INSERT INTO public.dots_count VALUES ('user2', 5, 20);
 
 
 --
@@ -338,4 +353,3 @@ GRANT ALL ON SCHEMA public TO PUBLIC;
 --
 -- PostgreSQL database dump complete
 --
-
