@@ -26,6 +26,36 @@ foreach ($image_name as $value) {
 	$id_loadImage = $id_loadImage +'1';
 }
 
+
+
+$total_real=0;
+foreach ($data_real as $value) {
+	$data_real_imageid[]= $value->image_id;
+	$data_real_dotscount[]= $value->dots_count;
+	$total_real = $total_real +'1';
+}
+
+//$total_user_1=0;
+foreach ($data_user_1 as $value) {
+	$data_user_1_imageid[]= $value->image_id;
+	$data_user_1_dotscount[]= $value->dots_count;
+	//$total_user_1 = $total_user_1 +'1';
+}
+
+//$total_user_2=0;
+foreach ($data_user_2 as $value) {
+	$data_user_2_imageid[]= $value->image_id;
+	$data_user_2_dotscount[]= $value->dots_count;
+	//$total_user_2 = $total_user_2 +'1';
+}
+
+for ($x = 0; $x < $total_real; $x++) {
+    $diffUser1[$x] = abs($data_real_dotscount[$x] - $data_user_1_dotscount[$x]);
+    $diffUser2[$x] = abs($data_real_dotscount[$x] - $data_user_2_dotscount[$x]);
+    $total_diff[$x] = $diffUser1[$x] + $diffUser2[$x] ;
+} 
+
+
 ?>
 
 </head>
@@ -176,37 +206,19 @@ foreach ($image_name as $value) {
 				backgroundColor:'rgba(122,122,122,0.2)',
 				borderColor:'rgba(102,255,102,0.2)',
 				borderWidth: 1,
-				data: [
-					Math.exp(3.00)*10,
-					Math.exp(2.75)*10,
-					Math.exp(2.50)*10,
-					Math.exp(2.25)*10,
-					Math.exp(2.00)*10
-				]
-			}, {
+				data: <?php echo json_encode($total_diff); ?>
+				}, {
 				label: 'Count Difference from Username2',
 				backgroundColor:'rgba(255,0,0,0.2)',
 				borderColor:'rgba(255,0,0,0.2)',
 				borderWidth: 1,
-				data: [
-					Math.exp(3.00)*6,
-					Math.exp(2.75)*4,
-					Math.exp(2.50)*6,
-					Math.exp(2.25)*4,
-					Math.exp(2.00)*5
-				]
+				data: <?php echo json_encode($diffUser1); ?>
 			}, {
 				label: 'Count Difference from Username3',
 				backgroundColor:'rgba(51,153,255,0.2)',
 				borderColor:'rgba(51,153,255,0.2)',
 				borderWidth: 1,
-				data: [
-					Math.exp(3.00)*4,
-					Math.exp(2.75)*6,
-					Math.exp(2.50)*4,
-					Math.exp(2.25)*6,
-					Math.exp(2.00)*5
-				]
+				data: <?php echo json_encode($diffUser2); ?>
 			}]
 
 		};
