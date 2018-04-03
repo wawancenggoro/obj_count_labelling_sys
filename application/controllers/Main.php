@@ -177,6 +177,24 @@ class Main extends CI_Controller {
 		$this->db_connect->insert('dots_coordinate',$data);
 		// redirect('marking/view');
 	}
+
+	public function sync_count(){
+		// insert into dots_count
+		// select userin as username, image_id, count(*) as dots_count from dots_coordinate 
+		// group by userin, image_id
+	}
+
+	public function sync_distance(){
+		// insert code here
+	}
+
+	public function show_user_stats($username){
+		// insert code here		
+	}
+
+	public function show_image_stats($image_id){
+		// insert code here		
+	}
     
 
 }

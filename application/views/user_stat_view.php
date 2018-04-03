@@ -38,6 +38,55 @@ foreach ($image_name as $value) {
 	      source: availableTags
 	    });
 	  } );
+
+	window.onload = function() {
+		var ctx = document.getElementById('canvas').getContext('2d');
+		
+		window.myBar = new Chart(ctx, {
+			type: 'bar',
+			data: barChartData,
+			options: {
+				responsive: true,
+				legend: {
+					position: 'top',
+				},
+				title: {
+					display: true,
+					text: 'Chart.js Bar Chart'
+				}
+			}
+		});
+		
+		var ctx_dots_count = document.getElementById('canvasDotsCount').getContext('2d');
+		
+		window.myBar = new Chart(ctx_dots_count, {
+			type: 'bar',
+			data: barChartDotsCount,
+			options: {
+				responsive: true,
+				legend: {
+					position: 'top',
+				},
+				title: {
+					display: true,
+					text: 'Chart.js Bar Chart'
+				}
+			}
+		});
+
+	};
+
+	document.getElementById('randomizeData').addEventListener('click', function() {
+		var zero = Math.random() < 0.2 ? true : false;
+		barChartData.datasets.forEach(function(dataset) {
+			dataset.data = dataset.data.map(function() {
+				return zero ? 0.0 : randomScalingFactor();
+			});
+
+		});
+		window.myBar.update();
+		
+	});
   </script>
 
 	<div class="ui-widget">
@@ -55,94 +104,54 @@ foreach ($image_name as $value) {
 	<script>
 	
 		var randomScalingFactor = function() {
-			return Math.round(Math.random() * 100);
+			// return Math.round(Math.random() * 100);
+			return Math.random() * 100;
 		};
-		//var MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 		var MONTHS = <?php echo '["' . implode('", "', $post_image_name) . '"]' ?>;
+		var MONTHS = ['Image 1', 'Image 2', 'Image 3', 'Image 4', 'Image 5'];
 		var color = Chart.helpers.color;
 		var barChartData = {
 			labels: MONTHS,
 			datasets: [{
 				type: 'line',
-				label: 'Dataset 1',
+				label: 'Total Distance',
 				backgroundColor:'rgba(122,122,122,0.2)',
 				borderColor:'rgba(102,255,102,0.2)',
 				borderWidth: 1,
 				data: [
-					randomScalingFactor(),
-					randomScalingFactor(),
-					randomScalingFactor(),
-					randomScalingFactor(),
-					randomScalingFactor(),
-					randomScalingFactor(),
-					randomScalingFactor()
+					Math.exp(2.00)*10,
+					Math.exp(1.75)*10,
+					Math.exp(1.50)*10,
+					Math.exp(1.25)*10,
+					Math.exp(1.00)*10
 				]
 			}, {
-				label: 'Dataset 2',
+				label: 'Distance from Username2',
 				backgroundColor:'rgba(255,0,0,0.2)',
 				borderColor:'rgba(255,0,0,0.2)',
 				borderWidth: 1,
 				data: [
-					randomScalingFactor(),
-					randomScalingFactor(),
-					randomScalingFactor(),
-					randomScalingFactor(),
-					randomScalingFactor(),
-					randomScalingFactor(),
-					randomScalingFactor()
+					Math.exp(2.00)*4,
+					Math.exp(1.75)*6,
+					Math.exp(1.50)*4,
+					Math.exp(1.25)*6,
+					Math.exp(1.00)*5
 				]
 			}, {
-				label: 'Dataset 3',
+				label: 'Distance from Username3',
 				backgroundColor:'rgba(51,153,255,0.2)',
 				borderColor:'rgba(51,153,255,0.2)',
 				borderWidth: 1,
 				data: [
-					randomScalingFactor(),
-					randomScalingFactor(),
-					randomScalingFactor(),
-					randomScalingFactor(),
-					randomScalingFactor(),
-					randomScalingFactor(),
-					randomScalingFactor()
+					Math.exp(2.00)*6,
+					Math.exp(1.75)*4,
+					Math.exp(1.50)*6,
+					Math.exp(1.25)*4,
+					Math.exp(1.00)*5
 				]
 			}]
 
-		};
-
-		window.onload = function() {
-			var ctx = document.getElementById('canvas').getContext('2d');
-			
-			window.myBar = new Chart(ctx, {
-				type: 'bar',
-				data: barChartData,
-				options: {
-					responsive: true,
-					legend: {
-						position: 'top',
-					},
-					title: {
-						display: true,
-						text: 'Chart.js Bar Chart'
-					}
-				}
-			});
-			
-
-		};
-
-		document.getElementById('randomizeData').addEventListener('click', function() {
-			var zero = Math.random() < 0.2 ? true : false;
-			barChartData.datasets.forEach(function(dataset) {
-				dataset.data = dataset.data.map(function() {
-					return zero ? 0.0 : randomScalingFactor();
-				});
-
-			});
-			window.myBar.update();
-			
-		});
-
-		
+		};		
 	</script>
 </fieldset>
 
@@ -153,17 +162,55 @@ foreach ($image_name as $value) {
 <br/>
 <fieldset>
 <legend># of Points Summary</legend>
-Lorem Ipsum
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
+<div id="container" style="width: 50%;">
+		<canvas id="canvasDotsCount"></canvas>
+</div>	
+	<script>	
+		var DotsCountLabel = ['Image 1', 'Image 2', 'Image 3', 'Image 4', 'Image 5'];
+		var color = Chart.helpers.color;
+		var barChartDotsCount = {
+			labels: DotsCountLabel,
+			datasets: [{
+				type: 'line',
+				label: 'Total Count Differences',
+				backgroundColor:'rgba(122,122,122,0.2)',
+				borderColor:'rgba(102,255,102,0.2)',
+				borderWidth: 1,
+				data: [
+					Math.exp(3.00)*10,
+					Math.exp(2.75)*10,
+					Math.exp(2.50)*10,
+					Math.exp(2.25)*10,
+					Math.exp(2.00)*10
+				]
+			}, {
+				label: 'Count Difference from Username2',
+				backgroundColor:'rgba(255,0,0,0.2)',
+				borderColor:'rgba(255,0,0,0.2)',
+				borderWidth: 1,
+				data: [
+					Math.exp(3.00)*6,
+					Math.exp(2.75)*4,
+					Math.exp(2.50)*6,
+					Math.exp(2.25)*4,
+					Math.exp(2.00)*5
+				]
+			}, {
+				label: 'Count Difference from Username3',
+				backgroundColor:'rgba(51,153,255,0.2)',
+				borderColor:'rgba(51,153,255,0.2)',
+				borderWidth: 1,
+				data: [
+					Math.exp(3.00)*4,
+					Math.exp(2.75)*6,
+					Math.exp(2.50)*4,
+					Math.exp(2.25)*6,
+					Math.exp(2.00)*5
+				]
+			}]
+
+		};
+	</script>
 </fieldset>
 <br/>
 <br/>
