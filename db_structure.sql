@@ -280,10 +280,11 @@ INSERT INTO public.dots_count VALUES ('user2', 5, 20);
 -- Data for Name: images; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO public.images VALUES (1, 'DJI_0375.JPG', 'images/');
-INSERT INTO public.images VALUES (2, '6b54dcd03f674466a037c72d3339288f.JPG', '/var/www/html/obj_count_labelling_sys-codeigniter1/images/6b54dcd03f674466a037c72d3339288f.JPG');
-INSERT INTO public.images VALUES (3, 'DJI_03751.JPG', '/var/www/html/obj_count_labelling_sys-codeigniter1/images/DJI_03751.JPG');
-
+INSERT INTO public.images VALUES (1, 'Image_1.JPG', 'images/');
+INSERT INTO public.images VALUES (2, 'Image_2.JPG', 'images/');
+INSERT INTO public.images VALUES (3, 'Image_3.jpg', 'images/');
+INSERT INTO public.images VALUES (4, 'Image_4.jpg', 'images/');
+INSERT INTO public.images VALUES (4, 'Image_5.jpg', 'images/');
 
 --
 -- Name: images_image_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
