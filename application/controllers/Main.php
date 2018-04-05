@@ -53,6 +53,9 @@ class Main extends CI_Controller {
 		$this->load->model('main_model');
     	$data['image_name']=$this->main_model->get_all_image_name();
     	$data['all_username']=$this->main_model->get_all_username();
+    	$data['data_real']=$this->main_model->get_all_dots_count_data('staff');
+    	$data['data_user_1']=$this->main_model->get_all_dots_count_data('user1');
+    	$data['data_user_2']=$this->main_model->get_all_dots_count_data('user2');
 		$this->load->view("user_stat_view",$data);
 		
 	}
