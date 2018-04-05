@@ -13,21 +13,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  <link rel="stylesheet" href="/resources/demos/style.css">
 <?php
 
-$id_loadUsername=0;
-//var_dump($all_username);die();
+
 foreach ($all_username as $value) {
-	$post_username[$id_loadUsername] = $value->username;
-	$id_loadUsername = $id_loadUsername +'1';
+	$post_username[] = $value->username;
 }
 
-$id_loadImage=0;
+
 foreach ($image_name as $value) {
-	$post_image_name[$id_loadImage] = $value->image_name;
-	$id_loadImage = $id_loadImage +'1';
+	$post_image_name[] = $value->image_name;
 }
-
-
-
+//var_dump($post_image_name);die();
 $total_real=0;
 foreach ($data_real as $value) {
 	$data_real_imageid[]= $value->image_id;
@@ -35,26 +30,48 @@ foreach ($data_real as $value) {
 	$total_real = $total_real +'1';
 }
 
-//$total_user_1=0;
 foreach ($data_user_1 as $value) {
 	$data_user_1_imageid[]= $value->image_id;
 	$data_user_1_dotscount[]= $value->dots_count;
-	//$total_user_1 = $total_user_1 +'1';
 }
 
-//$total_user_2=0;
 foreach ($data_user_2 as $value) {
 	$data_user_2_imageid[]= $value->image_id;
 	$data_user_2_dotscount[]= $value->dots_count;
-	//$total_user_2 = $total_user_2 +'1';
 }
-
+$total_data=0;
 for ($x = 0; $x < $total_real; $x++) {
     $diffUser1[$x] = abs($data_real_dotscount[$x] - $data_user_1_dotscount[$x]);
     $diffUser2[$x] = abs($data_real_dotscount[$x] - $data_user_2_dotscount[$x]);
     $total_diff[$x] = $diffUser1[$x] + $diffUser2[$x] ;
+    $total_data= $total_data +1;
 } 
 
+//sorting bubble sort
+   for ($i = 0; $i < $total_data-1; $i++) {
+ 	// Last i elements are already in place   
+       for ($j = 0; $j < $total_data-$i-1; $j++){
+       		if ($total_diff[$j] < $total_diff[$j+1]){
+       			$temp_total_diff = $total_diff[$j];
+       			$total_diff[$j]=$total_diff[$j+1];
+       			$total_diff[$j+1]=$temp_total_diff;
+
+       			$temp_diffUser1=$diffUser1[$j];
+       			$diffUser1[$j]=$diffUser1[$j+1];
+       			$diffUser1[$j+1]=$temp_diffUser1;
+
+       			$temp_diffUser2=$diffUser2[$j];
+       			$diffUser2[$j]=$diffUser2[$j+1];
+       			$diffUser2[$j+1]=$temp_diffUser2;
+
+       			$temp_image_name = $post_image_name[$j];
+       			$post_image_name[$j]=$post_image_name[$j+1];
+       			$post_image_name[$j+1]=$temp_image_name;
+       		}
+              
+       } 
+           
+   }   
 
 ?>
 
@@ -138,7 +155,6 @@ for ($x = 0; $x < $total_real; $x++) {
 			return Math.random() * 100;
 		};
 		var MONTHS = <?php echo '["' . implode('", "', $post_image_name) . '"]' ?>;
-		var MONTHS = ['Image 1', 'Image 2', 'Image 3', 'Image 4', 'Image 5'];
 		var color = Chart.helpers.color;
 		var barChartData = {
 			labels: MONTHS,
@@ -195,8 +211,14 @@ for ($x = 0; $x < $total_real; $x++) {
 <div id="container" style="width: 50%;">
 		<canvas id="canvasDotsCount"></canvas>
 </div>	
+	<?php
+		//var_dump($total_diff);die();
+	?>
 	<script>	
-		var DotsCountLabel = ['Image 1', 'Image 2', 'Image 3', 'Image 4', 'Image 5'];
+		//var DotsCountLabel = ['Image 1', 'Image 2', 'Image 3', 'Image 4', 'Image 5'];
+		var DotsCountLabel = <?php echo '["' . implode('", "', $post_image_name) . '"]' ?>;
+
+		//image_name
 		var color = Chart.helpers.color;
 		var barChartDotsCount = {
 			labels: DotsCountLabel,
