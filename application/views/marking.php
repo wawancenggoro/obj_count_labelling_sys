@@ -63,6 +63,7 @@ $(document).ready(function(){
         });
 
         alert("Success");
+        location.reload(); //added by wawan
     });
         
     $('input[name=tools]').click(function (ev) {  
@@ -84,22 +85,27 @@ $(document).ready(function(){
 <div style='width: 590px; height:20px; margin-bottom: 10px; background-color: lightblue; text-align: center;'>Header</div>
 <div style='float: left; width: 20px; height:560px; margin-right: 10px; background-color: lightblue; text-align: center; vertical-align: center; writing-mode: vertical-lr; text-orientation: upright;'>Banner Left</div>
 
-<div id='img-container' style='float:left;width:560px;height:560px;'>
-    <?php foreach ($data as $va) {?>
-        <tr>
-            <td>
+<!-- ==========================================================================================-->
+<!-- cleaned up by wawan -->
+<!-- ==========================================================================================-->
+<?php foreach ($data as $va) {?>
+    <div id='img-container' style='float:left;width:560px;height:560px;'>
                 <img src="../../images/<?php echo $va->image_name;?>" width="560" height="560">
-            </td>
-        </tr>   
-</div>
-<tr>
-    <td>id : <span id='image_id'><?php echo $va->image_id;?></span></td>
-    <br>
-    <td>image_name : <?php echo $va->image_name;?></td>      
-
-
-</tr>
+    </div>
+    <table>
+        <tr >
+            <td colspan="3">IMAGE INFO</td>       
+        </tr> 
+        <tr>
+            <td>image_id: <span id='image_id'><?php echo $va->image_id;?></span></td>
+        <tr>
+        </tr>  
+            <td>image_name: <?php echo $va->image_name;?></td>  
+        </tr>        
+    </table>
 <?php } ?>
+<!-- ==========================================================================================-->
+
 <div>X: <span id='x-coordinate'></span></div>
 <div>Y: <span id='y-coordinate'></span></div>
 <form action="">

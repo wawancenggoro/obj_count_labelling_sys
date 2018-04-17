@@ -13,15 +13,25 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  <link rel="stylesheet" href="/resources/demos/style.css">
 <?php
 
-
 foreach ($all_username as $value) {
 	$post_username[] = $value->username;
 }
 
 
-foreach ($image_name as $value) {
+foreach ($images as $value) {
 	$post_image_name[] = $value->image_name;
 }
+
+//==================================================
+//added by wawan
+//==================================================
+foreach ($images as $value) {
+	$post_images[] = $value;
+}
+// print_r($post_images[2]);
+// die();
+//==================================================
+
 //var_dump($post_image_name);die();
 $total_real=0;
 foreach ($data_real as $value) {
@@ -48,30 +58,32 @@ for ($x = 0; $x < $total_real; $x++) {
 } 
 
 //sorting bubble sort
-   for ($i = 0; $i < $total_data-1; $i++) {
- 	// Last i elements are already in place   
-       for ($j = 0; $j < $total_data-$i-1; $j++){
-       		if ($total_diff[$j] < $total_diff[$j+1]){
-       			$temp_total_diff = $total_diff[$j];
-       			$total_diff[$j]=$total_diff[$j+1];
-       			$total_diff[$j+1]=$temp_total_diff;
+for ($i = 0; $i < $total_data-1; $i++) {
+	// Last i elements are already in place   
+   for ($j = 0; $j < $total_data-$i-1; $j++){
+   		if ($total_diff[$j] < $total_diff[$j+1]){
+   			$temp_total_diff = $total_diff[$j];
+   			$total_diff[$j]=$total_diff[$j+1];
+   			$total_diff[$j+1]=$temp_total_diff;
 
-       			$temp_diffUser1=$diffUser1[$j];
-       			$diffUser1[$j]=$diffUser1[$j+1];
-       			$diffUser1[$j+1]=$temp_diffUser1;
+   			$temp_diffUser1=$diffUser1[$j];
+   			$diffUser1[$j]=$diffUser1[$j+1];
+   			$diffUser1[$j+1]=$temp_diffUser1;
 
-       			$temp_diffUser2=$diffUser2[$j];
-       			$diffUser2[$j]=$diffUser2[$j+1];
-       			$diffUser2[$j+1]=$temp_diffUser2;
+   			$temp_diffUser2=$diffUser2[$j];
+   			$diffUser2[$j]=$diffUser2[$j+1];
+   			$diffUser2[$j+1]=$temp_diffUser2;
 
-       			$temp_image_name = $post_image_name[$j];
-       			$post_image_name[$j]=$post_image_name[$j+1];
-       			$post_image_name[$j+1]=$temp_image_name;
-       		}
-              
-       } 
-           
-   }   
+   			$temp_image_name = $post_image_name[$j];
+   			$post_image_name[$j]=$post_image_name[$j+1];
+   			$post_image_name[$j+1]=$temp_image_name;
+
+   			$temp_images = $post_images[$j];
+   			$post_images[$j]=$post_images[$j+1];
+   			$post_images[$j+1]=$temp_images;
+   		}   
+   }       
+}   
 
 ?>
 
@@ -134,12 +146,18 @@ for ($x = 0; $x < $total_real; $x++) {
 		window.myBar.update();
 		
 	});
-  </script>
-
+</script>
+	Current User: <?php echo $username; ?>
 	<div class="ui-widget">
-	  <label for="tags">Username: </label>
-	  <input id="tags">
+		<form method="post" action="" id="form_search_user">
+			<label for="username">Username: </label>
+			<input name="username">
+			<button type="submit" form="form_search_user" value="Submit">Search</button>
+		</form>
 	</div>
+
+	<br/>
+	<br/>
 
 <fieldset>
 <legend>Distance Summary</legend>
@@ -211,12 +229,19 @@ for ($x = 0; $x < $total_real; $x++) {
 <div id="container" style="width: 50%;">
 		<canvas id="canvasDotsCount"></canvas>
 </div>	
-	<?php
-		//var_dump($total_diff);die();
-	?>
 	<script>	
-		//var DotsCountLabel = ['Image 1', 'Image 2', 'Image 3', 'Image 4', 'Image 5'];
-		var DotsCountLabel = <?php echo '["' . implode('", "', $post_image_name) . '"]' ?>;
+		var DotsCountLabel = <?php 
+			echo '["';
+
+			echo $post_image_name[0];
+			
+			$length = count($post_images);
+			for ($i=1; $i < $length; $i++) { 
+				echo '", "'.$post_image_name[$i];
+			}
+
+			echo '"]'; ?>;
+
 
 		//image_name
 		var color = Chart.helpers.color;
@@ -229,22 +254,55 @@ for ($x = 0; $x < $total_real; $x++) {
 				borderColor:'rgba(102,255,102,0.2)',
 				borderWidth: 1,
 				data: <?php echo json_encode($total_diff); ?>
-				}, {
-				label: 'Count Difference from Username2',
-				backgroundColor:'rgba(255,0,0,0.2)',
-				borderColor:'rgba(255,0,0,0.2)',
+			}, {
+				label: 'Count Difference from Other User 1',
+				backgroundColor:'rgba(0,0,255,0.2)',
+				borderColor:'rgba(0,0,255,0.2)',
 				borderWidth: 1,
 				data: <?php echo json_encode($diffUser1); ?>
 			}, {
-				label: 'Count Difference from Username3',
-				backgroundColor:'rgba(51,153,255,0.2)',
-				borderColor:'rgba(51,153,255,0.2)',
+				label: 'Count Difference from Other User 2',
+				backgroundColor:'rgba(255,0,255,0.2)',
+				borderColor:'rgba(255,0,255,0.2)',
 				borderWidth: 1,
 				data: <?php echo json_encode($diffUser2); ?>
 			}]
 
 		};
 	</script>
+<br/>
+View Markers:
+<table border="1">
+<tr>
+	<?php 
+		$length = count($post_images);
+		for ($i=0; $i < $length; $i++) { 
+			$user1 = $data_user_1[$i]->username;
+			$user2 = $data_user_2[$i]->username;
+			echo '<td style="padding-left: 10px; padding-right: 10px"><a href="../../index.php/checkImage/view_check_image/'.$post_images[$i]->image_id.'/'.$username.'
+				'.'/'.$user1.''.'/'.$user2.'" target="blank">'.$post_images[$i]->image_name.'</a></td>';
+		}
+	?>
+	
+</tr>
+</table>
+<br/>
+Discard/Approve Work:
+<br/>
+<select>
+	<?php 
+		// $username = 'staff';
+		foreach ($post_images as $image) {
+			echo '<option value="'.$image->image_id.'"
+				>'.$image->image_name.'</option></td>';
+		}
+	?>
+</select> 
+<button type="button">Discard</button> 
+<button type="button">Approve</button> 
+<br/>
+<br/>
+<button type="button">Discard All Current User Works</button> 
 </fieldset>
 <br/>
 <br/>

@@ -51,11 +51,23 @@ class Main extends CI_Controller {
 	{
 		$data['title'] = 'User Statistics';
 		$this->load->model('main_model');
-    	$data['image_name']=$this->main_model->get_all_image_name();
+
+		if (!isset($_POST["username"])) {
+			$username = 'staff';
+		} else {
+			$username = $_POST['username'];
+		}
+
+		$data['username'] = $username;
+    	$data['images']=$this->main_model->get_all_image_name(); //modified by wawan
     	$data['all_username']=$this->main_model->get_all_username();
-    	$data['data_real']=$this->main_model->get_all_dots_count_data('staff');
-    	$data['data_user_1']=$this->main_model->get_all_dots_count_data('user1');
-    	$data['data_user_2']=$this->main_model->get_all_dots_count_data('user2');
+    	$data['data_real']=$this->main_model->get_all_dots_count_data($username);
+
+    	$others=$this->main_model->get_other_dots_count_data($data['data_real']);
+
+    	$data['data_user_1']=$others[0];
+    	$data['data_user_2']=$others[1];
+
 		$this->load->view("user_stat_view",$data);
 		
 	}
@@ -150,6 +162,10 @@ class Main extends CI_Controller {
     	$a['data']=$this->main_model->get_data("images");
     	$this->load->view('display_image_view',$a);
     }
+
+	//==============================================================
+	// modified by wawan
+	//==============================================================
     public function view_marking($page = 'marking')
     {
     	if ( ! file_exists(APPPATH.'views/'.$page.'.php'))
@@ -159,9 +175,11 @@ class Main extends CI_Controller {
         }
         //$data['title'] = ucfirst($page); // Capitalize the first letter
         $this->load->model('main_model');
-    	$a['data']=$this->main_model->get_random_image("images");
+    	$a['data']=$this->main_model->get_random_image($_SESSION['username']);
         $this->load->view($page, $a);
     }
+	//==============================================================
+
     public function insert_dot(){
 		$image_id = $this->input->post('image_id');
 		$x = $this->input->post('x');

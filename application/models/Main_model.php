@@ -40,6 +40,9 @@
 			return $r->result();
 		}
 
+		//==============================================================
+		// modified by wawan
+		//==============================================================
 		function get_random_image($username)
 		{
 		    // $this->db->order_by('id', 'RANDOM');
@@ -53,7 +56,7 @@
 		    	LEFT JOIN (
 		    		SELECT DISTINCT image_id, userin 
 		    		FROM dots_coordinate
-		    		WHERE userin = \'$username\'
+		    		WHERE userin = \''.$username.'\'
 		    	) usr
 		    		on img.image_id = usr.image_id
 		    	LEFT JOIN dots_coordinate dcr 
@@ -72,11 +75,12 @@
 		function get_all_image_name(){
 			$username='staff';
 			$sql = "
-				SELECT image_name FROM images where image_id in (SELECT DISTINCT image_id FROM dots_count WHERE username ='$username')
+				SELECT image_id, image_name FROM images where image_id in (SELECT DISTINCT image_id FROM dots_count WHERE username ='$username')
 			";
 			$query = $this->db->query($sql);
 			return $query->result();
-		}
+		}		
+		//==============================================================
 
 		function get_all_username(){
 			$sql = '
@@ -88,13 +92,36 @@
 
 		function get_all_dots_count_data($username){
 			$sql = "
-				SELECT * FROM dots_count where username = '$username'
+				SELECT *
+				FROM dots_count 
+				WHERE username = '$username'
 			";
 			$query = $this->db->query($sql);
 			return $query->result();
 
 		}
-			
+
+		function get_other_dots_count_data($usr0_counts){
+			$length = count($usr0_counts);
+			for ($i=0; $i < $length; $i++) { 
+				$username = $usr0_counts[$i]->username;
+				$image_id = $usr0_counts[$i]->image_id;
+				$sql = "
+					SELECT *
+					FROM dots_count 
+					WHERE username <> '$username'
+					AND image_id = '$image_id'
+					ORDER BY username
+					LIMIT 2
+				";
+				$query = $this->db->query($sql);
+				$result = $query->result();
+
+				$usr1_counts[$i] = $result[0];
+				$usr2_counts[$i] = $result[1];
+			}
+			return array($usr1_counts, $usr2_counts);
+		}			
 	}
 
 ?>

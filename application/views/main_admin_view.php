@@ -14,10 +14,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 echo '<h2>Welcome-'.$this->session->userdata('username').'</h2>';
 echo '<label><a href ="'.base_url().'main/logout">Logout</a></label>';
 ?>			
-<br><br>
+<br>
+<br>
+<a href="../main/register">Register New Volunteer</a>
+<br>
 <a href="../main/user_stat">User Statistics</a>
 <br>
-<a href="../main/image_stat">Image Statistics</a>
+<a href="../main/view_marking">Mark Ground Truth Image</a>
 
 </body>
 

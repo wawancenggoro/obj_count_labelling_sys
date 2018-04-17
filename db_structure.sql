@@ -238,13 +238,25 @@ INSERT INTO public.dots_coordinate VALUES (52, 3, 142, 43, 'staff', '2018-04-03 
 INSERT INTO public.dots_coordinate VALUES (53, 3, 142, 110, 'staff', '2018-04-03 17:48:44.540866', NULL, NULL);
 INSERT INTO public.dots_coordinate VALUES (54, 3, 144, 66, 'staff', '2018-04-03 17:48:44.547601', NULL, NULL);
 INSERT INTO public.dots_coordinate VALUES (55, 3, 144, 90, 'staff', '2018-04-03 17:48:44.555999', NULL, NULL);
+INSERT INTO public.dots_coordinate VALUES (56, 4, 140, 23, 'staff', '2018-04-10 08:44:07.858589', NULL, NULL);
+INSERT INTO public.dots_coordinate VALUES (57, 4, 141, 42, 'staff', '2018-04-10 08:44:07.890735', NULL, NULL);
+INSERT INTO public.dots_coordinate VALUES (63, 1, 52, 167, 'user2', '2018-04-13 15:48:56.743653', NULL, NULL);
+INSERT INTO public.dots_coordinate VALUES (64, 1, 100, 199, 'user2', '2018-04-13 15:48:56.877161', NULL, NULL);
+INSERT INTO public.dots_coordinate VALUES (65, 1, 100, 176, 'user2', '2018-04-13 15:48:56.885878', NULL, NULL);
+INSERT INTO public.dots_coordinate VALUES (66, 1, 52, 190, 'user2', '2018-04-13 15:48:56.89686', NULL, NULL);
+INSERT INTO public.dots_coordinate VALUES (67, 1, 51, 142, 'user2', '2018-04-13 15:48:56.908085', NULL, NULL);
+INSERT INTO public.dots_coordinate VALUES (58, 1, 144, 179, 'user1', '2018-04-13 15:48:39.424468', NULL, NULL);
+INSERT INTO public.dots_coordinate VALUES (59, 1, 144, 205, 'user1', '2018-04-13 15:48:39.450263', NULL, NULL);
+INSERT INTO public.dots_coordinate VALUES (60, 1, 99, 202, 'user1', '2018-04-13 15:48:39.461233', NULL, NULL);
+INSERT INTO public.dots_coordinate VALUES (61, 1, 198, 201, 'user1', '2018-04-13 15:48:39.472518', NULL, NULL);
+INSERT INTO public.dots_coordinate VALUES (62, 1, 98, 179, 'user1', '2018-04-13 15:48:39.483758', NULL, NULL);
 
 
 --
 -- Name: dots_coordinate_coordinate_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.dots_coordinate_coordinate_id_seq', 55, true);
+SELECT pg_catalog.setval('public.dots_coordinate_coordinate_id_seq', 67, true);
 
 
 --
@@ -255,19 +267,17 @@ INSERT INTO public.dots_count VALUES ('staff', 1, 10);
 INSERT INTO public.dots_count VALUES ('staff', 2, 12);
 INSERT INTO public.dots_count VALUES ('staff', 3, 13);
 INSERT INTO public.dots_count VALUES ('staff', 4, 10);
-INSERT INTO public.dots_count VALUES ('staff', 5, 15);
-
 INSERT INTO public.dots_count VALUES ('user1', 1, 9);
 INSERT INTO public.dots_count VALUES ('user1', 2, 0);
 INSERT INTO public.dots_count VALUES ('user1', 3, 0);
 INSERT INTO public.dots_count VALUES ('user1', 4, 8);
-INSERT INTO public.dots_count VALUES ('user1', 5, 15);
-
 INSERT INTO public.dots_count VALUES ('user2', 1, 10);
 INSERT INTO public.dots_count VALUES ('user2', 2, 12);
 INSERT INTO public.dots_count VALUES ('user2', 3, 15);
 INSERT INTO public.dots_count VALUES ('user2', 4, 0);
 INSERT INTO public.dots_count VALUES ('user2', 5, 20);
+INSERT INTO public.dots_count VALUES ('staff', 5, 17);
+INSERT INTO public.dots_count VALUES ('user1', 5, 16);
 
 
 --
@@ -284,7 +294,8 @@ INSERT INTO public.images VALUES (1, 'Image_1.JPG', 'images/');
 INSERT INTO public.images VALUES (2, 'Image_2.JPG', 'images/');
 INSERT INTO public.images VALUES (3, 'Image_3.jpg', 'images/');
 INSERT INTO public.images VALUES (4, 'Image_4.jpg', 'images/');
-INSERT INTO public.images VALUES (4, 'Image_5.jpg', 'images/');
+INSERT INTO public.images VALUES (5, 'Image_5.jpg', 'images/');
+
 
 --
 -- Name: images_image_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
@@ -299,6 +310,8 @@ SELECT pg_catalog.setval('public.images_image_id_seq', 3, true);
 
 INSERT INTO public.users VALUES ('staff', '1253208465b1efa876f982d8a9e73eef', 'staff');
 INSERT INTO public.users VALUES ('admin', '21232f297a57a5a743894a0e4a801fc3', 'admin');
+INSERT INTO public.users VALUES ('user1', '1253208465b1efa876f982d8a9e73eef', 'staff');
+INSERT INTO public.users VALUES ('user2', '1253208465b1efa876f982d8a9e73eef', 'staff');
 
 
 --
@@ -354,3 +367,4 @@ GRANT ALL ON SCHEMA public TO PUBLIC;
 --
 -- PostgreSQL database dump complete
 --
+
