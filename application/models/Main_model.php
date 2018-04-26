@@ -280,7 +280,7 @@
 				$list_images.=', '.$images[$i]->image_id;
 			}
 			$sql = "
-				SELECT dct1.username, dct1.image_id, img.image_name,
+				SELECT dct1.username, dct2.username AS username_admin, dct1.image_id, img.image_name,
 					dct1.dots_count AS dots_count_vln, dct2.dots_count AS dots_count_adm
 				FROM dots_count dct1
 				INNER JOIN images img ON dct1.image_id = img.image_id
@@ -303,14 +303,14 @@
 				$list_images.=', '.$images[$i]->image_id;
 			}
 			$sql = "
-				SELECT ddt.username1, ddt.image_id, img.image_name,
+				SELECT ddt.username1, ddt.username2, ddt.image_id, img.image_name,
 					SUM(ddt.distance) AS distance
 				FROM dots_distance ddt
 				INNER JOIN images img ON ddt.image_id = img.image_id
 				INNER JOIN users usr ON ddt.username2 = usr.username AND usr.role = 'admin'
 				WHERE ddt.username1 = '$username'
 				AND ddt.image_id in (".$list_images.")
-				GROUP BY ddt.username1, ddt.image_id, img.image_name
+				GROUP BY ddt.username1, ddt.username2, ddt.image_id, img.image_name
 				ORDER BY SUM(ddt.distance) DESC
 			";
 			$query = $this->db->query($sql);

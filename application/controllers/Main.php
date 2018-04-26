@@ -162,10 +162,14 @@ class Main extends CI_Controller {
         else{
             $data = array('upload_data' =>$this->upload->data()); //insert ke folder images
             $data_upload =  array('image_name' => $this->upload->data("file_name"), //insert ke DB
-				          'dateup' => $now->format('Y-m-d H:i:s')   
+            			  'path' => $this->upload->data("file_path"),
+            			  'width' => $this->upload->data("image_width"),
+            			  'height' => $this->upload->data("image_height")
+				          // 'dateup' => $now->format('Y-m-d H:i:s')   
             ); 
             $this->load->view('upload_success', $data);
             $this->load->model('main_model');
+
             $this->main_model->File_upload($data_upload); //insert ke DB
         }
     }

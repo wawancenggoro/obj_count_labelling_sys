@@ -55,7 +55,7 @@ $(document).ready(function(){
         );     
     <?php } ?>    
 
-    <?php if(isset($dots2)){foreach ($dots2 as $dot) {?>
+    <?php foreach ($dots2 as $dot) {?>
         x_coordinate = Math.round(<?php echo $dot->x;?>*2.5);
         y_coordinate = Math.round(<?php echo $dot->y;?>*2.5);
         x_coordinate = x_coordinate+document.getElementById("img-container").offsetLeft+1;
@@ -74,18 +74,9 @@ $(document).ready(function(){
                 cursor: 'crosshair'
             }).attr('x', <?php echo $dot->x;?>).attr('y', <?php echo $dot->y;?>)
         );     
-    <?php }} ?>    
+    <?php } ?>    
     // }
 });
-<?php
-    $image_name = $image_info[0]->image_name;
-
-    if(isset($user2)){
-        $image_path = '../../../../../../images/'.$image_name;
-    } else {
-        $image_path = '../../../../../images/'.$image_name;        
-    }
-?>
 </script>
 </head>
 
@@ -94,44 +85,44 @@ $(document).ready(function(){
 <div style='width: 590px; height:20px; margin-bottom: 10px; background-color: lightblue; text-align: center;'>Header</div>
 <div style='float: left; width: 20px; height:560px; margin-right: 10px; background-color: lightblue; text-align: center; vertical-align: center; writing-mode: vertical-lr; text-orientation: upright;'>Banner Left</div>
 
-<div id='img-container' style='float:left;width:560px;height:560px;'>
-    <img src="<?php echo $image_path;?>" width="560" height="560">
-</div>
-<table>
-    <tr >
-        <td colspan="3">LEGENDS</td>       
-    </tr> 
-    <tr>
-        <td>
-            <div style="width: 13px; height: 13px; background: rgb(255, 0, 0) none repeat scroll 0% 0%; border-radius: 50%; cursor: crosshair;"></div>
-        </td><td>username</td><td>:</td><td><span id='username'><?php echo $user0;?></span></td>       
-    </tr>  
-    <tr>               
-        <td>
-            <div style="width: 13px; height: 13px; background: rgb(0, 0, 255) none repeat scroll 0% 0%; border-radius: 50%; cursor: crosshair;"></div>
-        </td><td>other user 1</td><td>:</td><td><span id='username'><?php echo $user1;?></span></td>       
-    </tr> 
-    <?php if(isset($dots2)){?>
-    <tr>                
-        <td>
-            <div style="width: 13px; height: 13px; background: rgb(255, 0, 255) none repeat scroll 0% 0%; border-radius: 50%; cursor: crosshair;"></div>
-        </td><td>other user 2</td><td>:</td><td><span id='username'><?php echo $user2;?></span></td>            
-    </tr>  
-    <?php } ?>      
-</table>
-<br/>
-<br/>
-<table>
-    <tr >
-        <td colspan="3">IMAGE INFO</td>       
-    </tr> 
-    <tr>
-        <td>image_id: <span id='image_id'><?php echo $image_info[0]->image_id;?></span></td>
-    <tr>
-    </tr>  
-        <td>image_name: <?php echo $image_info[0]->image_name;?></td>  
-    </tr>        
-</table>
+<?php foreach ($image_info as $image) {?>
+    <div id='img-container' style='float:left;width:560px;height:560px;'>
+        <img src="../../../../../../images/<?php echo $image->image_name;?>" width="560" height="560">
+    </div>
+    <table>
+        <tr >
+            <td colspan="3">LEGENDS</td>       
+        </tr> 
+        <tr>
+            <td>
+                <div style="width: 13px; height: 13px; background: rgb(255, 0, 0) none repeat scroll 0% 0%; border-radius: 50%; cursor: crosshair;"></div>
+            </td><td>username</td><td>:</td><td><span id='username'><?php echo $user0;?></span></td>       
+        </tr>  
+        <tr>               
+            <td>
+                <div style="width: 13px; height: 13px; background: rgb(0, 0, 255) none repeat scroll 0% 0%; border-radius: 50%; cursor: crosshair;"></div>
+            </td><td>other user 1</td><td>:</td><td><span id='username'><?php echo $user1;?></span></td>       
+        </tr> 
+        <tr>                
+            <td>
+                <div style="width: 13px; height: 13px; background: rgb(255, 0, 255) none repeat scroll 0% 0%; border-radius: 50%; cursor: crosshair;"></div>
+            </td><td>other user 2</td><td>:</td><td><span id='username'><?php echo $user2;?></span></td>            
+        </tr>        
+    </table>
+    <br/>
+    <br/>
+    <table>
+        <tr >
+            <td colspan="3">IMAGE INFO</td>       
+        </tr> 
+        <tr>
+            <td>image_id: <span id='image_id'><?php echo $image->image_id;?></span></td>
+        <tr>
+        </tr>  
+            <td>image_name: <?php echo $image->image_name;?></td>  
+        </tr>        
+    </table>
+<?php } ?>
 </body>
 
 

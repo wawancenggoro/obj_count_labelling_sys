@@ -13,7 +13,7 @@ class CheckImage extends CI_Controller {
     //========================================================================
     // added by wawan
     //========================================================================
-    public function view_check_image($image_id, $user0, $user1, $user2)
+    public function view_check_image($image_id, $user0, $user1, $user2=NULL)
     {
     	$page = 'check_image_view';
     	if ( ! file_exists(APPPATH.'views/'.$page.'.php'))
@@ -29,8 +29,10 @@ class CheckImage extends CI_Controller {
         $a['user1']=$user1;
         $a['dots1']=$this->check_image_model->get_dots($image_id, $user1);
 
-        $a['user2']=$user2;
-        $a['dots2']=$this->check_image_model->get_dots($image_id, $user2);
+        if (isset($user2)){
+            $a['user2']=$user2;
+            $a['dots2']=$this->check_image_model->get_dots($image_id, $user2);            
+        }
 
     	$a['image_info']=$this->check_image_model->get_image_info($image_id);
 

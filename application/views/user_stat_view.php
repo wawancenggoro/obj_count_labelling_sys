@@ -455,12 +455,11 @@ View Markers:
 <table border="1">
 <tr>
 	<?php 
-		$length = count($dist_gt_images);
+		$length = count($dist_gt);
 		for ($i=0; $i < $length; $i++) { 
-			$user1 = $dotscount_user1[$i]->username;
-			$user2 = $dotscount_user2[$i]->username;
-			echo '<td style="padding-left: 10px; padding-right: 10px"><a href="../../index.php/checkImage/view_check_image/'.$dist_gt_images[$i]->image_id.'/'.$username.'
-				'.'/'.$user1.''.'/'.$user2.'" target="blank">'.$dist_gt_images[$i]->image_name.'</a></td>';
+			$user1 = $dist_gt[$i]->username2;
+			echo '<td style="padding-left: 10px; padding-right: 10px"><a href="../../index.php/checkImage/view_check_image/'.$dist_gt[$i]->image_id.'/'.$username.'
+				'.'/'.$user1.'" target="blank">'.$dist_gt[$i]->image_name.'</a></td>';
 		}
 	?>
 	
@@ -518,12 +517,11 @@ View Markers:
 <table border="1">
 <tr>
 	<?php 
-		$length = count($dotscount_gt_images);
+		$length = count($dotscount_gt);
 		for ($i=0; $i < $length; $i++) { 
-			$user1 = $dotscount_user1[$i]->username;
-			$user2 = $dotscount_user2[$i]->username;
+			$user1 = $dotscount_gt[$i]->username_admin;
 			echo '<td style="padding-left: 10px; padding-right: 10px"><a href="../../index.php/checkImage/view_check_image/'.$dotscount_gt[$i]->image_id.'/'.$username.'
-				'.'/'.$user1.''.'/'.$user2.'" target="blank">'.$dotscount_gt[$i]->image_name.'</a></td>';
+				'.'/'.$user1.'" target="blank">'.$dotscount_gt[$i]->image_name.'</a></td>';
 		}
 	?>
 	

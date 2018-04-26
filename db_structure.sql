@@ -156,11 +156,34 @@ ALTER TABLE public.dots_distance OWNER TO postgres;
 CREATE TABLE public.images (
     image_id bigint NOT NULL,
     image_name character varying,
-    path character varying
+    path character varying,
+    width integer,
+    height integer NOT NULL
 );
 
 
 ALTER TABLE public.images OWNER TO postgres;
+
+--
+-- Name: images_height_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.images_height_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.images_height_seq OWNER TO postgres;
+
+--
+-- Name: images_height_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.images_height_seq OWNED BY public.images.height;
+
 
 --
 -- Name: images_image_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
@@ -208,6 +231,13 @@ ALTER TABLE ONLY public.dots_coordinate ALTER COLUMN coordinate_id SET DEFAULT n
 --
 
 ALTER TABLE ONLY public.images ALTER COLUMN image_id SET DEFAULT nextval('public.images_image_id_seq'::regclass);
+
+
+--
+-- Name: height; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.images ALTER COLUMN height SET DEFAULT nextval('public.images_height_seq'::regclass);
 
 
 --
@@ -320,18 +350,25 @@ INSERT INTO public.dots_distance VALUES ('staff', 'admin', 1, 40, 63, 55);
 -- Data for Name: images; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO public.images VALUES (1, 'Image_1.JPG', 'images/');
-INSERT INTO public.images VALUES (2, 'Image_2.JPG', 'images/');
-INSERT INTO public.images VALUES (3, 'Image_3.jpg', 'images/');
-INSERT INTO public.images VALUES (4, 'Image_4.jpg', 'images/');
-INSERT INTO public.images VALUES (5, 'Image_5.jpg', 'images/');
+INSERT INTO public.images VALUES (1, 'Image_1.JPG', '/var/www/html/obj_count_labelling_sys-codeigniter/images/', 224, 224);
+INSERT INTO public.images VALUES (2, 'Image_2.JPG', '/var/www/html/obj_count_labelling_sys-codeigniter/images/', 224, 224);
+INSERT INTO public.images VALUES (3, 'Image_3.jpg', '/var/www/html/obj_count_labelling_sys-codeigniter/images/', 224, 224);
+INSERT INTO public.images VALUES (4, 'Image_4.jpg', '/var/www/html/obj_count_labelling_sys-codeigniter/images/', 224, 224);
+INSERT INTO public.images VALUES (5, 'Image_5.jpg', '/var/www/html/obj_count_labelling_sys-codeigniter/images/', 224, 224);
+
+
+--
+-- Name: images_height_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.images_height_seq', 5, true);
 
 
 --
 -- Name: images_image_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.images_image_id_seq', 3, true);
+SELECT pg_catalog.setval('public.images_image_id_seq', 5, true);
 
 
 --
