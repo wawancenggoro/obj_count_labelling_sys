@@ -59,15 +59,27 @@ class Main extends CI_Controller {
 		}
 
 		$data['username'] = $username;
-    	$data['images']=$this->main_model->get_all_image_name(); //modified by wawan
     	$data['all_username']=$this->main_model->get_all_username();
-    	$data['data_real']=$this->main_model->get_all_dots_count_data($username);
+    	
+    	$data['dist_images']=$this->main_model->get_all_dist_image_name($username);
+    	// $data['dist_user0']=$this->main_model->get_all_dist_data($username, $data['dist_images']);
+    	$others_dists=$this->main_model->get_other_dist_data($username, $data['dist_images']);
+    	$data['dist_user1']=$others_dists[0];
+    	$data['dist_user2']=$others_dists[1];
 
-    	$others=$this->main_model->get_other_dots_count_data($data['data_real']);
+    	$data['dotscount_images']=$this->main_model->get_all_dotscount_image_name($username);
+    	$data['dotscount_user0']=$this->main_model->get_all_dots_count_data($username, $data['dotscount_images']);
+    	$others_counts=$this->main_model->get_other_dots_count_data($data['dotscount_user0']);
+    	$data['dotscount_user1']=$others_counts[0];
+    	$data['dotscount_user2']=$others_counts[1];
 
-    	$data['data_user_1']=$others[0];
-    	$data['data_user_2']=$others[1];
-
+    	$data['dist_gt_images']=$this->main_model->get_all_dist_gt_image_name($username);
+    	$data['dist_gt']=$this->main_model->get_all_dist_gt_data($username, $data['dist_gt_images']);
+    	
+    	$data['dotscount_gt_images']=$this->main_model->get_all_dotscount_gt_image_name($username);
+    	$data['dotscount_gt']=$this->main_model->get_all_dots_count_gt_data($username, $data['dotscount_gt_images']);
+    	// print_r($data['dist_user0']);
+    	// die();
 		$this->load->view("user_stat_view",$data);
 		
 	}
@@ -112,7 +124,7 @@ class Main extends CI_Controller {
 						'username' => $username
 					);
 					$this->session->set_userdata($session_data);
-					if($user[0]->role=='staff'){
+					if($user[0]->role=='volunteer'){
 						redirect(base_url().'main/main');
 					} 
 					else if($user[0]->role=='admin'){
@@ -163,22 +175,31 @@ class Main extends CI_Controller {
     	$this->load->view('display_image_view',$a);
     }
 
-	//==============================================================
-	// modified by wawan
-	//==============================================================
-    public function view_marking($page = 'marking')
+    public function view_marking()
     {
-    	if ( ! file_exists(APPPATH.'views/'.$page.'.php'))
+    	if ( ! file_exists(APPPATH.'views/marking.php'))
         {
                 // Whoops, we don't have a page for that!
                 show_404();
         }
         //$data['title'] = ucfirst($page); // Capitalize the first letter
         $this->load->model('main_model');
-    	$a['data']=$this->main_model->get_random_image($_SESSION['username']);
-        $this->load->view($page, $a);
+    	$a['data']=$this->main_model->get_image_for_volunteer($_SESSION['username']);
+        $this->load->view('marking', $a);
     }
-	//==============================================================
+
+    public function view_marking_admin()
+    {
+    	if ( ! file_exists(APPPATH.'views/marking_admin_view.php'))
+        {
+                // Whoops, we don't have a page for that!
+                show_404();
+        }
+        //$data['title'] = ucfirst($page); // Capitalize the first letter
+        $this->load->model('main_model');
+    	$a['data']=$this->main_model->get_image_for_admin($_SESSION['username']);
+        $this->load->view('marking_admin_view', $a);
+    }
 
     public function insert_dot(){
 		$image_id = $this->input->post('image_id');

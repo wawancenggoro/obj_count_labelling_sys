@@ -84,25 +84,24 @@ $(document).ready(function(){
 
 <div style='width: 590px; height:20px; margin-bottom: 10px; background-color: lightblue; text-align: center;'>Header</div>
 <div style='float: left; width: 20px; height:560px; margin-right: 10px; background-color: lightblue; text-align: center; vertical-align: center; writing-mode: vertical-lr; text-orientation: upright;'>Banner Left</div>
-
 <!-- ==========================================================================================-->
 <!-- cleaned up by wawan -->
 <!-- ==========================================================================================-->
-<?php if(isset($data)){?>
-    <div id='img-container' style='float:left;width:560px;height:560px;'>
-                <img src="../../images/<?php echo $data->image_name;?>" width="560" height="560">
-    </div>
-    <table>
-        <tr >
-            <td colspan="3">IMAGE INFO</td>       
-        </tr> 
-        <tr>
-            <td>image_id: <span id='image_id'><?php echo $data->image_id;?></span></td>
-        <tr>
-        </tr>  
-            <td>image_name: <?php echo $data->image_name;?></td>  
-        </tr>        
-    </table>
+<?php if(isset($data)){ ?>
+<div id='img-container' style='float:left;width:560px;height:560px;'>
+            <img src="../../images/<?php echo $data->image_name;?>" width="560" height="560">
+</div>
+<table>
+    <tr >
+        <td colspan="3">IMAGE INFO</td>       
+    </tr> 
+    <tr>
+        <td>image_id: <span id='image_id'><?php echo $data->image_id;?></span></td>
+    <tr>
+    </tr>  
+        <td>image_name: <?php echo $data->image_name;?></td>  
+    </tr>        
+</table>
 <!-- ==========================================================================================-->
 
 <div>X: <span id='x-coordinate'></span></div>

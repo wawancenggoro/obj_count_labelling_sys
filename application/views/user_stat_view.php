@@ -18,72 +18,89 @@ foreach ($all_username as $value) {
 }
 
 
-foreach ($images as $value) {
-	$post_image_name[] = $value->image_name;
+foreach ($dotscount_images as $value) {
+	$dotscount_post_image_name[] = $value->image_name;
 }
 
-//==================================================
-//added by wawan
-//==================================================
-foreach ($images as $value) {
-	$post_images[] = $value;
-}
-// print_r($post_images[2]);
-// die();
-//==================================================
-
-//var_dump($post_image_name);die();
-$total_real=0;
-foreach ($data_real as $value) {
-	$data_real_imageid[]= $value->image_id;
-	$data_real_dotscount[]= $value->dots_count;
-	$total_real = $total_real +'1';
+foreach ($dotscount_gt as $value) {
+	$dotscount_gt_post_image_name[] = $value->image_name;
 }
 
-foreach ($data_user_1 as $value) {
-	$data_user_1_imageid[]= $value->image_id;
-	$data_user_1_dotscount[]= $value->dots_count;
+foreach ($dist_images as $value) {
+	$dist_post_image_name[] = $value->image_name;
 }
 
-foreach ($data_user_2 as $value) {
-	$data_user_2_imageid[]= $value->image_id;
-	$data_user_2_dotscount[]= $value->dots_count;
+foreach ($dist_gt_images as $value) {
+	$dist_gt_post_image_name[] = $value->image_name;
 }
-$total_data=0;
-for ($x = 0; $x < $total_real; $x++) {
-    $diffUser1[$x] = abs($data_real_dotscount[$x] - $data_user_1_dotscount[$x]);
-    $diffUser2[$x] = abs($data_real_dotscount[$x] - $data_user_2_dotscount[$x]);
-    $total_diff[$x] = $diffUser1[$x] + $diffUser2[$x] ;
-    $total_data= $total_data +1;
+
+$length = count($dist_images);
+for ($x = 0; $x < $length; $x++) {
+    $dist_user0_chart[$x] = $dist_images[$x]->distance;
+    $dist_user1_chart[$x] = $dist_user1[$x]->distance;
+    $dist_user2_chart[$x] = $dist_user2[$x]->distance;
+} 
+
+$dotscount_imagecount=0;
+foreach ($dotscount_user0 as $value) {
+	$dotscount_user0_imageid[]= $value->image_id;
+	$dotscount_user0_count[]= $value->dots_count;
+	$dotscount_imagecount = $dotscount_imagecount +'1';
+}
+
+foreach ($dotscount_user1 as $value) {
+	$dotscount_user1_imageid[]= $value->image_id;
+	$dotscount_user1_count[]= $value->dots_count;
+}
+
+foreach ($dotscount_user2 as $value) {
+	$dotscount_user2_imageid[]= $value->image_id;
+	$dotscount_user2_count[]= $value->dots_count;
+}
+for ($x = 0; $x < $dotscount_imagecount; $x++) {
+    $diffCountUser1[$x] = abs($dotscount_user0_count[$x] - $dotscount_user1_count[$x]);
+    $diffCountUser2[$x] = abs($dotscount_user0_count[$x] - $dotscount_user2_count[$x]);
+    $dotscount_total_diff[$x] = $diffCountUser1[$x] + $diffCountUser2[$x] ;
 } 
 
 //sorting bubble sort
-for ($i = 0; $i < $total_data-1; $i++) {
+for ($i = 0; $i < $dotscount_imagecount-1; $i++) {
 	// Last i elements are already in place   
-   for ($j = 0; $j < $total_data-$i-1; $j++){
-   		if ($total_diff[$j] < $total_diff[$j+1]){
-   			$temp_total_diff = $total_diff[$j];
-   			$total_diff[$j]=$total_diff[$j+1];
-   			$total_diff[$j+1]=$temp_total_diff;
+   for ($j = 0; $j < $dotscount_imagecount-$i-1; $j++){
+   		if ($dotscount_total_diff[$j] < $dotscount_total_diff[$j+1]){
+   			$temp_dotscount_total_diff = $dotscount_total_diff[$j];
+   			$dotscount_total_diff[$j]=$dotscount_total_diff[$j+1];
+   			$dotscount_total_diff[$j+1]=$temp_dotscount_total_diff;
 
-   			$temp_diffUser1=$diffUser1[$j];
-   			$diffUser1[$j]=$diffUser1[$j+1];
-   			$diffUser1[$j+1]=$temp_diffUser1;
+   			$temp_diffCountUser1=$diffCountUser1[$j];
+   			$diffCountUser1[$j]=$diffCountUser1[$j+1];
+   			$diffCountUser1[$j+1]=$temp_diffCountUser1;
 
-   			$temp_diffUser2=$diffUser2[$j];
-   			$diffUser2[$j]=$diffUser2[$j+1];
-   			$diffUser2[$j+1]=$temp_diffUser2;
+   			$temp_diffCountUser2=$diffCountUser2[$j];
+   			$diffCountUser2[$j]=$diffCountUser2[$j+1];
+   			$diffCountUser2[$j+1]=$temp_diffCountUser2;
 
-   			$temp_image_name = $post_image_name[$j];
-   			$post_image_name[$j]=$post_image_name[$j+1];
-   			$post_image_name[$j+1]=$temp_image_name;
+   			$temp_dotscount_image_name = $dotscount_post_image_name[$j];
+   			$dotscount_post_image_name[$j]=$dotscount_post_image_name[$j+1];
+   			$dotscount_post_image_name[$j+1]=$temp_dotscount_image_name;
 
-   			$temp_images = $post_images[$j];
-   			$post_images[$j]=$post_images[$j+1];
-   			$post_images[$j+1]=$temp_images;
+   			$temp_dotscount_images = $dotscount_images[$j];
+   			$dotscount_images[$j]=$dotscount_images[$j+1];
+   			$dotscount_images[$j+1]=$temp_dotscount_images;
    		}   
    }       
 }   
+
+$length = count($dotscount_gt);
+for ($x = 0; $x < $length; $x++) {
+    $dotscount_gt_chart_vln[$x] = $dotscount_gt[$x]->dots_count_vln;
+    $dotscount_gt_chart_adm[$x] = $dotscount_gt[$x]->dots_count_adm;
+} 
+
+$length = count($dist_gt);
+for ($x = 0; $x < $length; $x++) {
+    $dist_gt_chart[$x] = $dist_gt[$x]->distance;
+} 
 
 ?>
 
@@ -112,7 +129,14 @@ for ($i = 0; $i < $total_data-1; $i++) {
 				title: {
 					display: true,
 					text: 'Chart.js Bar Chart'
-				}
+				},
+		        scales: {
+		            yAxes: [{
+		                ticks: {
+		                    beginAtZero:true
+		                }
+		            }]
+		        }
 			}
 		});
 		
@@ -129,10 +153,64 @@ for ($i = 0; $i < $total_data-1; $i++) {
 				title: {
 					display: true,
 					text: 'Chart.js Bar Chart'
-				}
+				},
+		        scales: {
+		            yAxes: [{
+		                ticks: {
+		                    beginAtZero:true
+		                }
+		            }]
+		        }
 			}
 		});
 
+		var ctx_dots_count_gt = document.getElementById('canvasDotsCountGT').getContext('2d');
+		
+		window.myBar = new Chart(ctx_dots_count_gt, {
+			type: 'bar',
+			data: barChartDotsCountGT,
+			options: {
+				responsive: true,
+				legend: {
+					position: 'top',
+				},
+				title: {
+					display: true,
+					text: 'Chart.js Bar Chart'
+				},
+		        scales: {
+		            yAxes: [{
+		                ticks: {
+		                    beginAtZero:true
+		                }
+		            }]
+		        }
+			}
+		});
+
+		var ctx_dist_gt = document.getElementById('canvasDistGT').getContext('2d');
+		
+		window.myBar = new Chart(ctx_dist_gt, {
+			type: 'bar',
+			data: barChartDistGT,
+			options: {
+				responsive: true,
+				legend: {
+					position: 'top',
+				},
+				title: {
+					display: true,
+					text: 'Chart.js Bar Chart'
+				},
+		        scales: {
+		            yAxes: [{
+		                ticks: {
+		                    beginAtZero:true
+		                }
+		            }]
+		        }
+			}
+		});
 	};
 
 	document.getElementById('randomizeData').addEventListener('click', function() {
@@ -172,51 +250,76 @@ for ($i = 0; $i < $total_data-1; $i++) {
 			// return Math.round(Math.random() * 100);
 			return Math.random() * 100;
 		};
-		var MONTHS = <?php echo '["' . implode('", "', $post_image_name) . '"]' ?>;
+		var DistLabel = <?php 
+			echo '["';
+
+			echo $dist_post_image_name[0];
+			
+			$length = count($dist_post_image_name);
+			for ($i=1; $i < $length; $i++) { 
+				echo '", "'.$dist_post_image_name[$i];
+			}
+
+			echo '"]'; ?>; //14532
+
 		var color = Chart.helpers.color;
 		var barChartData = {
-			labels: MONTHS,
+			labels: DistLabel,
 			datasets: [{
 				type: 'line',
 				label: 'Total Distance',
 				backgroundColor:'rgba(122,122,122,0.2)',
 				borderColor:'rgba(102,255,102,0.2)',
 				borderWidth: 1,
-				data: [
-					Math.exp(2.00)*10,
-					Math.exp(1.75)*10,
-					Math.exp(1.50)*10,
-					Math.exp(1.25)*10,
-					Math.exp(1.00)*10
-				]
+				data: <?php echo json_encode($dist_user0_chart); ?>
 			}, {
 				label: 'Distance from Username2',
-				backgroundColor:'rgba(255,0,0,0.2)',
-				borderColor:'rgba(255,0,0,0.2)',
+				backgroundColor:'rgba(0,0,255,0.2)',
+				borderColor:'rgba(0,0,255,0.2)',
 				borderWidth: 1,
-				data: [
-					Math.exp(2.00)*4,
-					Math.exp(1.75)*6,
-					Math.exp(1.50)*4,
-					Math.exp(1.25)*6,
-					Math.exp(1.00)*5
-				]
+				data: <?php echo json_encode($dist_user1_chart); ?>
 			}, {
 				label: 'Distance from Username3',
-				backgroundColor:'rgba(51,153,255,0.2)',
-				borderColor:'rgba(51,153,255,0.2)',
+				backgroundColor:'rgba(255,0,255,0.2)',
+				borderColor:'rgba(255,0,255,0.2)',
 				borderWidth: 1,
-				data: [
-					Math.exp(2.00)*6,
-					Math.exp(1.75)*4,
-					Math.exp(1.50)*6,
-					Math.exp(1.25)*4,
-					Math.exp(1.00)*5
-				]
+				data: <?php echo json_encode($dist_user2_chart); ?>
 			}]
 
 		};		
 	</script>
+<br/>
+View Markers:
+<table border="1">
+<tr>
+	<?php 
+		$length = count($dist_images);
+		for ($i=0; $i < $length; $i++) { 
+			$user1 = $dist_user1[$i]->username2;
+			$user2 = $dist_user2[$i]->username2;
+			echo '<td style="padding-left: 10px; padding-right: 10px"><a href="../../index.php/checkImage/view_check_image/'.$dist_images[$i]->image_id.'/'.$username.'
+				'.'/'.$user1.''.'/'.$user2.'" target="blank">'.$dist_images[$i]->image_name.'</a></td>';
+		}
+	?>
+	
+</tr>
+</table>
+<br/>
+Discard/Approve Work:
+<br/>
+<select>
+	<?php 
+		foreach ($dist_images as $image) {
+			echo '<option value="'.$image->image_id.'"
+				>'.$image->image_name.'</option></td>';
+		}
+	?>
+</select> 
+<button type="button">Discard</button> 
+<button type="button">Approve</button> 
+<br/>
+<br/>
+<button type="button">Discard All Current User Works</button> 
 </fieldset>
 
 <br/>
@@ -225,7 +328,7 @@ for ($i = 0; $i < $total_data-1; $i++) {
 <br/>
 <br/>
 <fieldset>
-<legend># of Points Summary</legend>
+<legend>Dots Count Difference Summary</legend>
 <div id="container" style="width: 50%;">
 		<canvas id="canvasDotsCount"></canvas>
 </div>	
@@ -233,11 +336,11 @@ for ($i = 0; $i < $total_data-1; $i++) {
 		var DotsCountLabel = <?php 
 			echo '["';
 
-			echo $post_image_name[0];
+			echo $dotscount_post_image_name[0];
 			
-			$length = count($post_images);
+			$length = count($dotscount_post_image_name);
 			for ($i=1; $i < $length; $i++) { 
-				echo '", "'.$post_image_name[$i];
+				echo '", "'.$dotscount_post_image_name[$i];
 			}
 
 			echo '"]'; ?>;
@@ -253,19 +356,19 @@ for ($i = 0; $i < $total_data-1; $i++) {
 				backgroundColor:'rgba(122,122,122,0.2)',
 				borderColor:'rgba(102,255,102,0.2)',
 				borderWidth: 1,
-				data: <?php echo json_encode($total_diff); ?>
+				data: <?php echo json_encode($dotscount_total_diff); ?>
 			}, {
 				label: 'Count Difference from Other User 1',
 				backgroundColor:'rgba(0,0,255,0.2)',
 				borderColor:'rgba(0,0,255,0.2)',
 				borderWidth: 1,
-				data: <?php echo json_encode($diffUser1); ?>
+				data: <?php echo json_encode($diffCountUser1); ?>
 			}, {
 				label: 'Count Difference from Other User 2',
 				backgroundColor:'rgba(255,0,255,0.2)',
 				borderColor:'rgba(255,0,255,0.2)',
 				borderWidth: 1,
-				data: <?php echo json_encode($diffUser2); ?>
+				data: <?php echo json_encode($diffCountUser2); ?>
 			}]
 
 		};
@@ -275,12 +378,12 @@ View Markers:
 <table border="1">
 <tr>
 	<?php 
-		$length = count($post_images);
+		$length = count($dotscount_images);
 		for ($i=0; $i < $length; $i++) { 
-			$user1 = $data_user_1[$i]->username;
-			$user2 = $data_user_2[$i]->username;
-			echo '<td style="padding-left: 10px; padding-right: 10px"><a href="../../index.php/checkImage/view_check_image/'.$post_images[$i]->image_id.'/'.$username.'
-				'.'/'.$user1.''.'/'.$user2.'" target="blank">'.$post_images[$i]->image_name.'</a></td>';
+			$user1 = $dotscount_user1[$i]->username;
+			$user2 = $dotscount_user2[$i]->username;
+			echo '<td style="padding-left: 10px; padding-right: 10px"><a href="../../index.php/checkImage/view_check_image/'.$dotscount_images[$i]->image_id.'/'.$username.'
+				'.'/'.$user1.''.'/'.$user2.'" target="blank">'.$dotscount_images[$i]->image_name.'</a></td>';
 		}
 	?>
 	
@@ -291,8 +394,7 @@ Discard/Approve Work:
 <br/>
 <select>
 	<?php 
-		// $username = 'staff';
-		foreach ($post_images as $image) {
+		foreach ($dotscount_images as $image) {
 			echo '<option value="'.$image->image_id.'"
 				>'.$image->image_name.'</option></td>';
 		}
@@ -310,20 +412,126 @@ Discard/Approve Work:
 <br/>
 <br/>
 <fieldset>
-<legend>Accuracy to Ground Truth Summary</legend>
-Lorem Ipsum
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-</fieldset>
+<legend>Distance to Ground Truth Summary</legend>
+<div id="container" style="width: 50%;">
+		<canvas id="canvasDistGT"></canvas>
+</div>	
+	<script>	
+		var DistGTLabel = <?php 
+			echo '["';
 
+			echo $dist_gt_post_image_name[0];
+			
+			$length = count($dist_gt_post_image_name);
+			for ($i=1; $i < $length; $i++) { 
+				echo '", "'.$dist_gt_post_image_name[$i];
+			}
+
+			echo '"]'; ?>;
+
+
+		//image_name
+		var color = Chart.helpers.color;
+		var barChartDistGT = {
+			labels: DistGTLabel,
+			datasets: [{
+				label: 'Distance to Ground Truth',
+				backgroundColor:[
+					'rgba(0,0,255,0.2)',
+					'rgba(255,0,0,0.2)'
+					],
+				borderColor:[
+					'rgba(0,0,255,0.2)',
+					'rgba(255,0,0,0.2)'
+					],
+				borderWidth: 1,
+				data: <?php echo json_encode($dist_gt_chart); ?>
+			}]
+
+		};
+	</script>
+<br/>
+View Markers:
+<table border="1">
+<tr>
+	<?php 
+		$length = count($dist_gt_images);
+		for ($i=0; $i < $length; $i++) { 
+			$user1 = $dotscount_user1[$i]->username;
+			$user2 = $dotscount_user2[$i]->username;
+			echo '<td style="padding-left: 10px; padding-right: 10px"><a href="../../index.php/checkImage/view_check_image/'.$dist_gt_images[$i]->image_id.'/'.$username.'
+				'.'/'.$user1.''.'/'.$user2.'" target="blank">'.$dist_gt_images[$i]->image_name.'</a></td>';
+		}
+	?>
+	
+</tr>
+</table>
+<br/>
+<button type="button">Discard All Current User Works</button> 
+</fieldset>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<fieldset>
+<legend>Dots Count Difference to Ground Truth Summary</legend>
+<div id="container" style="width: 50%;">
+		<canvas id="canvasDotsCountGT"></canvas>
+</div>	
+	<script>	
+		var DotsCountLabel = <?php 
+			echo '["';
+
+			echo $dotscount_gt_post_image_name[0];
+			
+			$length = count($dotscount_gt_post_image_name);
+			for ($i=1; $i < $length; $i++) { 
+				echo '", "'.$dotscount_gt_post_image_name[$i];
+			}
+
+			echo '"]'; ?>;
+
+
+		//image_name
+		var color = Chart.helpers.color;
+		var barChartDotsCountGT = {
+			labels: DotsCountLabel,
+			datasets: [{
+				label: 'Ground Truth Dots Count',
+				backgroundColor:'rgba(0,0,255,0.2)',
+				borderColor:'rgba(0,0,255,0.2)',
+				borderWidth: 1,
+				data: <?php echo json_encode($dotscount_gt_chart_adm); ?>
+			}, {
+				label: 'User Dots Count',
+				backgroundColor:'rgba(255,0,0,0.2)',
+				borderColor:'rgba(255,0,0,0.2)',
+				borderWidth: 1,
+				data: <?php echo json_encode($dotscount_gt_chart_vln); ?>
+			}]
+
+		};
+	</script>
+<br/>
+View Markers:
+<table border="1">
+<tr>
+	<?php 
+		$length = count($dotscount_gt_images);
+		for ($i=0; $i < $length; $i++) { 
+			$user1 = $dotscount_user1[$i]->username;
+			$user2 = $dotscount_user2[$i]->username;
+			echo '<td style="padding-left: 10px; padding-right: 10px"><a href="../../index.php/checkImage/view_check_image/'.$dotscount_gt[$i]->image_id.'/'.$username.'
+				'.'/'.$user1.''.'/'.$user2.'" target="blank">'.$dotscount_gt[$i]->image_name.'</a></td>';
+		}
+	?>
+	
+</tr>
+</table>
+<br/>
+<button type="button">Discard All Current User Works</button> 
+</fieldset>
 </body>
 
 

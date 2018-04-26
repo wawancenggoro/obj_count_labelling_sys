@@ -138,11 +138,11 @@ ALTER TABLE public.dots_count OWNER TO postgres;
 --
 
 CREATE TABLE public.dots_distance (
-    username1 character varying,
-    username2 character varying,
-    image_id bigint,
-    coordinate_id1 bigint,
-    coordinate_id2 bigint,
+    username1 character varying NOT NULL,
+    username2 character varying NOT NULL,
+    image_id bigint NOT NULL,
+    coordinate_id1 bigint NOT NULL,
+    coordinate_id2 bigint NOT NULL,
     distance double precision
 );
 
@@ -250,13 +250,17 @@ INSERT INTO public.dots_coordinate VALUES (59, 1, 144, 205, 'user1', '2018-04-13
 INSERT INTO public.dots_coordinate VALUES (60, 1, 99, 202, 'user1', '2018-04-13 15:48:39.461233', NULL, NULL);
 INSERT INTO public.dots_coordinate VALUES (61, 1, 198, 201, 'user1', '2018-04-13 15:48:39.472518', NULL, NULL);
 INSERT INTO public.dots_coordinate VALUES (62, 1, 98, 179, 'user1', '2018-04-13 15:48:39.483758', NULL, NULL);
+INSERT INTO public.dots_coordinate VALUES (72, 1, 201, 204, 'admin', '2018-04-18 20:34:17.316632', NULL, NULL);
+INSERT INTO public.dots_coordinate VALUES (73, 1, 146, 205, 'admin', '2018-04-18 20:34:17.361071', NULL, NULL);
+INSERT INTO public.dots_coordinate VALUES (74, 1, 146, 176, 'admin', '2018-04-18 20:34:17.374396', NULL, NULL);
+INSERT INTO public.dots_coordinate VALUES (75, 1, 194, 162, 'admin', '2018-04-18 20:34:17.385112', NULL, NULL);
 
 
 --
 -- Name: dots_coordinate_coordinate_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.dots_coordinate_coordinate_id_seq', 67, true);
+SELECT pg_catalog.setval('public.dots_coordinate_coordinate_id_seq', 75, true);
 
 
 --
@@ -266,7 +270,6 @@ SELECT pg_catalog.setval('public.dots_coordinate_coordinate_id_seq', 67, true);
 INSERT INTO public.dots_count VALUES ('staff', 1, 10);
 INSERT INTO public.dots_count VALUES ('staff', 2, 12);
 INSERT INTO public.dots_count VALUES ('staff', 3, 13);
-INSERT INTO public.dots_count VALUES ('staff', 4, 10);
 INSERT INTO public.dots_count VALUES ('user1', 1, 9);
 INSERT INTO public.dots_count VALUES ('user1', 2, 0);
 INSERT INTO public.dots_count VALUES ('user1', 3, 0);
@@ -278,12 +281,39 @@ INSERT INTO public.dots_count VALUES ('user2', 4, 0);
 INSERT INTO public.dots_count VALUES ('user2', 5, 20);
 INSERT INTO public.dots_count VALUES ('staff', 5, 17);
 INSERT INTO public.dots_count VALUES ('user1', 5, 16);
+INSERT INTO public.dots_count VALUES ('admin', 1, 4);
+INSERT INTO public.dots_count VALUES ('admin', 4, 6);
+INSERT INTO public.dots_count VALUES ('staff', 4, 15);
 
 
 --
 -- Data for Name: dots_distance; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
+INSERT INTO public.dots_distance VALUES ('staff', 'user2', 1, 39, 63, 100);
+INSERT INTO public.dots_distance VALUES ('staff', 'user1', 1, 40, 63, 100);
+INSERT INTO public.dots_distance VALUES ('staff', 'user1', 1, 39, 63, 100);
+INSERT INTO public.dots_distance VALUES ('staff', 'user2', 1, 40, 63, 100);
+INSERT INTO public.dots_distance VALUES ('staff', 'user2', 3, 39, 63, 100);
+INSERT INTO public.dots_distance VALUES ('staff', 'user2', 3, 40, 63, 100);
+INSERT INTO public.dots_distance VALUES ('staff', 'user2', 4, 39, 63, 100);
+INSERT INTO public.dots_distance VALUES ('staff', 'user2', 4, 40, 63, 100);
+INSERT INTO public.dots_distance VALUES ('staff', 'user2', 5, 39, 63, 100);
+INSERT INTO public.dots_distance VALUES ('staff', 'user2', 5, 40, 63, 100);
+INSERT INTO public.dots_distance VALUES ('staff', 'user1', 3, 39, 63, 100);
+INSERT INTO public.dots_distance VALUES ('staff', 'user1', 3, 40, 63, 100);
+INSERT INTO public.dots_distance VALUES ('staff', 'user1', 4, 39, 63, 100);
+INSERT INTO public.dots_distance VALUES ('staff', 'user1', 4, 40, 63, 100);
+INSERT INTO public.dots_distance VALUES ('staff', 'user1', 5, 39, 63, 100);
+INSERT INTO public.dots_distance VALUES ('staff', 'user1', 5, 40, 63, 100);
+INSERT INTO public.dots_distance VALUES ('staff', 'user2', 2, 39, 63, 50);
+INSERT INTO public.dots_distance VALUES ('staff', 'user2', 2, 40, 63, 50);
+INSERT INTO public.dots_distance VALUES ('staff', 'user1', 2, 39, 63, 50);
+INSERT INTO public.dots_distance VALUES ('staff', 'user1', 2, 40, 63, 50);
+INSERT INTO public.dots_distance VALUES ('staff', 'admin', 4, 39, 63, 25);
+INSERT INTO public.dots_distance VALUES ('staff', 'admin', 4, 40, 63, 25);
+INSERT INTO public.dots_distance VALUES ('staff', 'admin', 1, 39, 63, 55);
+INSERT INTO public.dots_distance VALUES ('staff', 'admin', 1, 40, 63, 55);
 
 
 --
@@ -308,10 +338,10 @@ SELECT pg_catalog.setval('public.images_image_id_seq', 3, true);
 -- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO public.users VALUES ('staff', '1253208465b1efa876f982d8a9e73eef', 'staff');
 INSERT INTO public.users VALUES ('admin', '21232f297a57a5a743894a0e4a801fc3', 'admin');
-INSERT INTO public.users VALUES ('user1', '1253208465b1efa876f982d8a9e73eef', 'staff');
-INSERT INTO public.users VALUES ('user2', '1253208465b1efa876f982d8a9e73eef', 'staff');
+INSERT INTO public.users VALUES ('staff', '1253208465b1efa876f982d8a9e73eef', 'volunteer');
+INSERT INTO public.users VALUES ('user2', '1253208465b1efa876f982d8a9e73eef', 'volunteer');
+INSERT INTO public.users VALUES ('user1', '1253208465b1efa876f982d8a9e73eef', 'volunteer');
 
 
 --
@@ -336,6 +366,14 @@ ALTER TABLE ONLY public.dots_coordinate
 
 ALTER TABLE ONLY public.dots_count
     ADD CONSTRAINT dots_count_pkey PRIMARY KEY (username, image_id);
+
+
+--
+-- Name: dots_distance_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.dots_distance
+    ADD CONSTRAINT dots_distance_pkey PRIMARY KEY (username1, username2, image_id, coordinate_id1, coordinate_id2);
 
 
 --

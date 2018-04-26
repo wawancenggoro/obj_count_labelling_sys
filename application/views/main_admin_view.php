@@ -20,7 +20,7 @@ echo '<label><a href ="'.base_url().'main/logout">Logout</a></label>';
 <br>
 <a href="../main/user_stat">User Statistics</a>
 <br>
-<a href="../main/view_marking">Mark Ground Truth Image</a>
+<a href="../main/view_marking_admin">Mark Ground Truth Image</a>
 
 </body>
 
