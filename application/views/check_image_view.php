@@ -9,10 +9,6 @@ $(document).ready(function(){
 
     var username = '<?php echo $user0 ?>';
     
-    // pos_x = [146, 143]
-    // pos_y = [66, 42]
-
-    // for (i=0; i<2; i++){
     <?php foreach ($dots0 as $dot) {?>
         x_coordinate = Math.round(<?php echo $dot->x;?>*2.5);
         y_coordinate = Math.round(<?php echo $dot->y;?>*2.5);
@@ -20,7 +16,7 @@ $(document).ready(function(){
         y_coordinate = y_coordinate+document.getElementById("img-container").offsetTop+1;
 
         $("#img-container").append(            
-            $('<div class="marker"></div>').css({
+            $('<div class="marker-user0"></div>').css({
                 position: 'absolute',
                 top: (y_coordinate-7) + 'px',
                 left: (x_coordinate-7) + 'px',
@@ -41,7 +37,7 @@ $(document).ready(function(){
         y_coordinate = y_coordinate+document.getElementById("img-container").offsetTop+1;
 
         $("#img-container").append(            
-            $('<div class="marker"></div>').css({
+            $('<div class="marker-user1"></div>').css({
                 position: 'absolute',
                 top: (y_coordinate-7) + 'px',
                 left: (x_coordinate-7) + 'px',
@@ -62,7 +58,7 @@ $(document).ready(function(){
         y_coordinate = y_coordinate+document.getElementById("img-container").offsetTop+1;
 
         $("#img-container").append(            
-            $('<div class="marker"></div>').css({
+            $('<div class="marker-user2"></div>').css({
                 position: 'absolute',
                 top: (y_coordinate-7) + 'px',
                 left: (x_coordinate-7) + 'px',
@@ -75,7 +71,54 @@ $(document).ready(function(){
             }).attr('x', <?php echo $dot->x;?>).attr('y', <?php echo $dot->y;?>)
         );     
     <?php }} ?>    
-    // }
+
+    $('#chk_user0').change(function() {
+        if(this.checked) {
+            var elements = document.getElementsByClassName('marker-user0');
+
+            for (var i = 0; i < elements.length; i++){
+                elements[i].style.display = 'block';
+            }
+        } else {
+            var elements = document.getElementsByClassName('marker-user0');
+
+            for (var i = 0; i < elements.length; i++){
+                elements[i].style.display = 'none';
+            }       
+        }
+    });
+
+    $('#chk_user1').change(function() {
+        if(this.checked) {
+            var elements = document.getElementsByClassName('marker-user1');
+
+            for (var i = 0; i < elements.length; i++){
+                elements[i].style.display = 'block';
+            }
+        } else {
+            var elements = document.getElementsByClassName('marker-user1');
+
+            for (var i = 0; i < elements.length; i++){
+                elements[i].style.display = 'none';
+            }       
+        }
+    });
+
+    $('#chk_user2').change(function() {
+        if(this.checked) {
+            var elements = document.getElementsByClassName('marker-user2');
+
+            for (var i = 0; i < elements.length; i++){
+                elements[i].style.display = 'block';
+            }
+        } else {
+            var elements = document.getElementsByClassName('marker-user2');
+
+            for (var i = 0; i < elements.length; i++){
+                elements[i].style.display = 'none';
+            }       
+        }
+    });
 });
 <?php
     $image_name = $image_info[0]->image_name;
@@ -99,23 +142,26 @@ $(document).ready(function(){
 </div>
 <table>
     <tr >
-        <td colspan="3">LEGENDS</td>       
+        <td colspan="4">LEGENDS</td>       
     </tr> 
     <tr>
         <td>
             <div style="width: 13px; height: 13px; background: rgb(255, 0, 0) none repeat scroll 0% 0%; border-radius: 50%; cursor: crosshair;"></div>
-        </td><td>username</td><td>:</td><td><span id='username'><?php echo $user0;?></span></td>       
+        </td><td>username</td><td>:</td><td><span id='username'><?php echo $user0;?></span></td>   
+        <td><input type="checkbox" id="chk_user0" value="Car" checked> Show</td>    
     </tr>  
     <tr>               
         <td>
             <div style="width: 13px; height: 13px; background: rgb(0, 0, 255) none repeat scroll 0% 0%; border-radius: 50%; cursor: crosshair;"></div>
-        </td><td>other user 1</td><td>:</td><td><span id='username'><?php echo $user1;?></span></td>       
+        </td><td>other user 1</td><td>:</td><td><span id='username'><?php echo $user1;?></span></td>    
+        <td><input type="checkbox" id="chk_user1" value="Car" checked> Show</td>       
     </tr> 
     <?php if(isset($dots2)){?>
     <tr>                
         <td>
             <div style="width: 13px; height: 13px; background: rgb(255, 0, 255) none repeat scroll 0% 0%; border-radius: 50%; cursor: crosshair;"></div>
-        </td><td>other user 2</td><td>:</td><td><span id='username'><?php echo $user2;?></span></td>            
+        </td><td>other user 2</td><td>:</td><td><span id='username'><?php echo $user2;?></span></td>    
+        <td><input type="checkbox" id="chk_user2" value="Car" checked> Show</td>            
     </tr>  
     <?php } ?>      
 </table>
