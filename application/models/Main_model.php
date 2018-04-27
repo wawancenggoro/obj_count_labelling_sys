@@ -50,7 +50,7 @@
 		    // $query = $this->db->get($a);
 
 		    $sql = '
-		    	SELECT img.image_id, img.image_name, usr.userin,
+		    	SELECT img.image_id, img.image_name, img.width, img.height, usr.userin,
 		    		COUNT(DISTINCT dcr.image_id) AS cnt_lbl
 		    	FROM images img
 		    	LEFT JOIN (
@@ -62,7 +62,8 @@
 		    	LEFT JOIN dots_coordinate dcr 
 		    		ON img.image_id = dcr.image_id
 		    	GROUP BY img.image_id, img.image_name, usr.userin
-		    	HAVING usr.userin IS NULL AND COUNT(DISTINCT dcr.image_id) < 3
+		    	HAVING usr.userin IS NULL AND COUNT(DISTINCT dcr.image_id) < 3 
+		    	--AND img.image_id = 6 
 		    	ORDER BY cnt_lbl
 		    	LIMIT 1
 		    	';

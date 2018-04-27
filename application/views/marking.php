@@ -2,7 +2,11 @@
 <html>
 <head>
 <title>Page Title</title>
-
+<?php
+    $display_height = 560;
+    $image_ratio = $display_height/$data->height;
+    $display_width = $data->width*$image_ratio;
+?>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script>
 $(document).ready(function(){ 
@@ -23,8 +27,8 @@ $(document).ready(function(){
             pos_x = pos_x - 1
             pos_y = pos_y - 1
 
-            x_coordinate = Math.round(pos_x/2.5);
-            y_coordinate = Math.round(pos_y/2.5);
+            x_coordinate = Math.round(pos_x/<?php echo $image_ratio; ?>);
+            y_coordinate = Math.round(pos_y/<?php echo $image_ratio; ?>);
 
             $("#img-container").append(            
                 $('<div class="marker"></div>').css({
@@ -89,8 +93,8 @@ $(document).ready(function(){
 <!-- cleaned up by wawan -->
 <!-- ==========================================================================================-->
 <?php if(isset($data)){?>
-    <div id='img-container' style='float:left;width:560px;height:560px;'>
-                <img src="../../images/<?php echo $data->image_name;?>" width="560" height="560">
+    <div id='img-container' style='float:left;width:<?php echo $display_width; ?>px;height:<?php echo $display_height; ?>px;'>
+                <img src="../../images/<?php echo $data->image_name;?>" width="<?php echo $display_width; ?>" height="<?php echo $display_height; ?>">
     </div>
     <table>
         <tr >

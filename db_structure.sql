@@ -368,7 +368,7 @@ SELECT pg_catalog.setval('public.images_height_seq', 5, true);
 -- Name: images_image_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.images_image_id_seq', 5, true);
+SELECT pg_catalog.setval('public.images_image_id_seq', 6, true);
 
 
 --
