@@ -231,7 +231,11 @@ class Main extends CI_Controller {
 	}
 
 	public function sync_distance(){
-		// insert code here
+		$this->load->model('main_model');
+		$this->main_model->drop_user_dots_distance();
+    	
+		$a['data']=$this->main_model->get_all_dots_coordinate();
+		$this->load->view('sync_distance',$a);
 	}
 
 	public function show_user_stats($username){
