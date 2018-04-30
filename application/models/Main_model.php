@@ -317,5 +317,35 @@
 			$query = $this->db->query($sql);
 			return $query->result();
 		}
+		
+		function get_all_dots_coordinate(){
+			$sql = "
+				SELECT * FROM dots_coordinate
+			";
+			$query = $this->db->query($sql);
+			return $query->result();
+
+		}
+
+		function drop_user_dots_distance(){
+			$sql = "
+				TRUNCATE TABLE dots_distance
+			";
+			$query = $this->db->query($sql);
+			if($query)
+				return true;
+			return false;
+		}
+
+		function insert_user_dots_distance($username1,$username2,$image_id,$coordinate_id1,$coordinate_id2,$distance){
+
+			$sql = "
+				INSERT INTO dots_distance VALUES('$username1','$username2','$image_id','$coordinate_id1','$coordinate_id2','$distance')
+			";
+			$query = $this->db->query($sql);
+			if($query)
+				return true;
+			return false;
+		}
 	}
 ?>
