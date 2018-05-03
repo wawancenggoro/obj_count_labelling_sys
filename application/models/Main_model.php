@@ -53,26 +53,27 @@
 		    	SELECT img.image_id, img.image_name, img.width, img.height, usr.userin,
 		    		COUNT(DISTINCT dcr.image_id) AS cnt_lbl
 		    	FROM images img
+		    	LEFT JOIN dots_coordinate dcr 
+		    		ON img.image_id = dcr.image_id
 		    	LEFT JOIN (
 		    		SELECT DISTINCT image_id, userin 
 		    		FROM dots_coordinate
 		    		WHERE userin = \''.$username.'\'
 		    	) usr
-		    		on img.image_id = usr.image_id
-		    	LEFT JOIN dots_coordinate dcr 
-		    		ON img.image_id = dcr.image_id
+		    		ON img.image_id = usr.image_id
 		    	GROUP BY img.image_id, img.image_name, usr.userin
 		    	HAVING usr.userin IS NULL AND COUNT(DISTINCT dcr.image_id) < 3 
-		    	--AND img.image_id = 6 
 		    	ORDER BY cnt_lbl
-		    	LIMIT 1
+		    	LIMIT 5
 		    	';
 		    $query = $this->db->query($sql);
 		    $res = $query->result();
 		    $cnt = count($res);
 
+		    $idx = rand(0,$cnt-1); 
+
 		    if($cnt>0){
-		    	return $res[0];
+		    	return $res[$idx];
 		    } else {
 		    	return NULL;
 		    }
@@ -113,8 +114,9 @@
 		    $query = $this->db->query($sql);
 		    $res = $query->result();
 		    $cnt = count($res);
-		    $userin = $res[0]->userin;
 		    if($cnt>0){
+			    $idx = rand(0,$cnt-1); 
+			    $userin = $res[$idx]->userin;
 		    	$sql = "
 			    	SELECT DISTINCT img.image_id, img.image_name
 			    	FROM images img
@@ -134,8 +136,10 @@
 			    $query = $this->db->query($sql);
 			    $res = $query->result();
 			    $cnt = count($res);
+		    	$idx = rand(0,$cnt-1); 
+
 			    if($cnt>0){
-			    	$img = $res[rand(0,-1)];
+			    	$img = $res[$idx];
 			    } else {
 			    	$img = NULL;
 			    }		    
@@ -149,7 +153,8 @@
 		function get_all_dotscount_image_name($username){
 			// $username='staff';
 			$sql = "
-				SELECT image_id, image_name FROM images where image_id in (SELECT DISTINCT image_id FROM dots_count WHERE username ='$username')
+				SELECT image_id, image_name FROM images WHERE image_id IN (SELECT DISTINCT image_id FROM dots_count WHERE username ='$username')
+				ORDER BY image_id
 			";
 			$query = $this->db->query($sql);
 			return $query->result();
@@ -158,7 +163,7 @@
 		function get_all_dist_image_name($username){
 			// $username='staff';
 			$sql = "
-				SELECT ddt.image_id, img.image_name, SUM(ddt.distance) AS distance 
+				SELECT ddt.image_id, img.image_name, AVG(ddt.distance) AS distance 
 				FROM dots_distance ddt
 				INNER JOIN images img 
 					ON img.image_id = ddt.image_id
@@ -166,7 +171,7 @@
 					ON ddt.username2 = usr.username AND usr.role='volunteer'
 				WHERE ddt.username1 ='$username' 
 				GROUP BY ddt.image_id, img.image_name 
-				ORDER BY SUM(distance) DESC 
+				ORDER BY AVG(distance) DESC 
 				LIMIT 5
 			";
 			$query = $this->db->query($sql);
@@ -211,7 +216,7 @@
 			for ($i=0; $i < $length; $i++) { 
 				$image_id = $images[$i]->image_id;
 				$sql = "
-					SELECT dct.username1, dct.username2, dct.image_id, SUM(dct.distance) AS distance
+					SELECT dct.username1, dct.username2, dct.image_id, AVG(dct.distance) AS distance
 					FROM dots_distance dct
 					INNER JOIN users usr 
 						ON dct.username2 = usr.username
@@ -243,6 +248,7 @@
 				FROM dots_count 
 				WHERE username = '$username'
 				AND image_id in (".$list_images.")
+				ORDER BY image_id
 			";
 			$query = $this->db->query($sql);
 			return $query->result();
@@ -305,14 +311,14 @@
 			}
 			$sql = "
 				SELECT ddt.username1, ddt.username2, ddt.image_id, img.image_name,
-					SUM(ddt.distance) AS distance
+					AVG(ddt.distance) AS distance
 				FROM dots_distance ddt
 				INNER JOIN images img ON ddt.image_id = img.image_id
 				INNER JOIN users usr ON ddt.username2 = usr.username AND usr.role = 'admin'
 				WHERE ddt.username1 = '$username'
 				AND ddt.image_id in (".$list_images.")
 				GROUP BY ddt.username1, ddt.username2, ddt.image_id, img.image_name
-				ORDER BY SUM(ddt.distance) DESC
+				ORDER BY AVG(ddt.distance) DESC
 			";
 			$query = $this->db->query($sql);
 			return $query->result();
@@ -341,6 +347,29 @@
 
 			$sql = "
 				INSERT INTO dots_distance VALUES('$username1','$username2','$image_id','$coordinate_id1','$coordinate_id2','$distance')
+			";
+			$query = $this->db->query($sql);
+			if($query)
+				return true;
+			return false;
+		}
+
+		function drop_user_dots_count(){
+			$sql = "
+				TRUNCATE TABLE dots_count
+			";
+			$query = $this->db->query($sql);
+			if($query)
+				return true;
+			return false;
+		}
+
+		function insert_user_dots_count(){
+
+			$sql = "
+				INSERT INTO dots_count
+				SELECT userin as username, image_id, count(*) as dots_count from dots_coordinate 
+				GROUP BY userin, image_id
 			";
 			$query = $this->db->query($sql);
 			if($query)

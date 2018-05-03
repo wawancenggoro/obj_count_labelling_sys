@@ -82,8 +82,8 @@ $(document).ready(function(){
 
 <body>
 
-<div style='width: 590px; height:20px; margin-bottom: 10px; background-color: lightblue; text-align: center;'>Header</div>
-<div style='float: left; width: 20px; height:560px; margin-right: 10px; background-color: lightblue; text-align: center; vertical-align: center; writing-mode: vertical-lr; text-orientation: upright;'>Banner Left</div>
+<div style='width: 590px; height:20px; margin-bottom: 10px; background-color: lightblue; text-align: center;'></div>
+<div style='float: left; width: 20px; height:560px; margin-right: 10px; background-color: lightblue; text-align: center; vertical-align: center; writing-mode: vertical-lr; text-orientation: upright;'></div>
 <!-- ==========================================================================================-->
 <!-- cleaned up by wawan -->
 <!-- ==========================================================================================-->

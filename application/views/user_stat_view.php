@@ -60,7 +60,7 @@ foreach ($dotscount_user2 as $value) {
 for ($x = 0; $x < $dotscount_imagecount; $x++) {
     $diffCountUser1[$x] = abs($dotscount_user0_count[$x] - $dotscount_user1_count[$x]);
     $diffCountUser2[$x] = abs($dotscount_user0_count[$x] - $dotscount_user2_count[$x]);
-    $dotscount_total_diff[$x] = $diffCountUser1[$x] + $diffCountUser2[$x] ;
+    $dotscount_total_diff[$x] = ($diffCountUser1[$x] + $diffCountUser2[$x]);
 } 
 
 //sorting bubble sort
@@ -238,12 +238,10 @@ for ($x = 0; $x < $length; $x++) {
 	<br/>
 
 <fieldset>
-<legend>Distance Summary</legend>
+<legend>Average Distance Summary</legend>
 <div id="container" style="width: 50%;">
 		<canvas id="canvas"></canvas>
-</div>
-<button id="randomizeData">Randomize Data</button>
-	
+</div>	
 	<script>
 	
 		var randomScalingFactor = function() {
@@ -267,21 +265,21 @@ for ($x = 0; $x < $length; $x++) {
 			labels: DistLabel,
 			datasets: [{
 				type: 'line',
-				label: 'Total Distance',
-				backgroundColor:'rgba(122,122,122,0.2)',
-				borderColor:'rgba(102,255,102,0.2)',
+				label: 'Average Overall Distance',
+				backgroundColor:'rgba(255,0,0,0.2)',
+				borderColor:'rgba(255,0,0,1)',
 				borderWidth: 1,
 				data: <?php echo json_encode($dist_user0_chart); ?>
 			}, {
-				label: 'Distance from Username2',
-				backgroundColor:'rgba(0,0,255,0.2)',
-				borderColor:'rgba(0,0,255,0.2)',
+				label: 'Average Distance from Other User 1',
+				backgroundColor:'rgba(0,0,255,0.7)',
+				borderColor:'rgba(0,0,255,0.7)',
 				borderWidth: 1,
 				data: <?php echo json_encode($dist_user1_chart); ?>
 			}, {
-				label: 'Distance from Username3',
-				backgroundColor:'rgba(255,0,255,0.2)',
-				borderColor:'rgba(255,0,255,0.2)',
+				label: 'Average Distance from Other User 2',
+				backgroundColor:'rgba(0,170,0,0.7)',
+				borderColor:'rgba(0,170,0,0.7)',
 				borderWidth: 1,
 				data: <?php echo json_encode($dist_user2_chart); ?>
 			}]
@@ -338,8 +336,8 @@ Discard/Approve Work:
 
 			echo $dotscount_post_image_name[0];
 			
-			$length = count($dotscount_post_image_name);
-			for ($i=1; $i < $length; $i++) { 
+			// $length = count($dotscount_post_image_name);
+			for ($i=1; $i < 5; $i++) { 
 				echo '", "'.$dotscount_post_image_name[$i];
 			}
 
@@ -353,20 +351,20 @@ Discard/Approve Work:
 			datasets: [{
 				type: 'line',
 				label: 'Total Count Differences',
-				backgroundColor:'rgba(122,122,122,0.2)',
-				borderColor:'rgba(102,255,102,0.2)',
+				backgroundColor:'rgba(255,0,0,0.2)',
+				borderColor:'rgba(255,0,0,1)',
 				borderWidth: 1,
 				data: <?php echo json_encode($dotscount_total_diff); ?>
 			}, {
 				label: 'Count Difference from Other User 1',
-				backgroundColor:'rgba(0,0,255,0.2)',
-				borderColor:'rgba(0,0,255,0.2)',
+				backgroundColor:'rgba(0,0,255,0.7)',
+				borderColor:'rgba(0,0,255,0.7)',
 				borderWidth: 1,
 				data: <?php echo json_encode($diffCountUser1); ?>
 			}, {
 				label: 'Count Difference from Other User 2',
-				backgroundColor:'rgba(255,0,255,0.2)',
-				borderColor:'rgba(255,0,255,0.2)',
+				backgroundColor:'rgba(0,170,0,0.7)',
+				borderColor:'rgba(0,170,0,0.7)',
 				borderWidth: 1,
 				data: <?php echo json_encode($diffCountUser2); ?>
 			}]
@@ -378,8 +376,8 @@ View Markers:
 <table border="1">
 <tr>
 	<?php 
-		$length = count($dotscount_images);
-		for ($i=0; $i < $length; $i++) { 
+		// $length = count($dotscount_images);
+		for ($i=0; $i < 5; $i++) { 
 			$user1 = $dotscount_user1[$i]->username;
 			$user2 = $dotscount_user2[$i]->username;
 			echo '<td style="padding-left: 10px; padding-right: 10px"><a href="../../index.php/checkImage/view_check_image/'.$dotscount_images[$i]->image_id.'/'.$username.'
@@ -412,7 +410,7 @@ Discard/Approve Work:
 <br/>
 <br/>
 <fieldset>
-<legend>Distance to Ground Truth Summary</legend>
+<legend>Average Distance to Ground Truth Summary</legend>
 <div id="container" style="width: 50%;">
 		<canvas id="canvasDistGT"></canvas>
 </div>	
@@ -435,15 +433,9 @@ Discard/Approve Work:
 		var barChartDistGT = {
 			labels: DistGTLabel,
 			datasets: [{
-				label: 'Distance to Ground Truth',
-				backgroundColor:[
-					'rgba(0,0,255,0.2)',
-					'rgba(255,0,0,0.2)'
-					],
-				borderColor:[
-					'rgba(0,0,255,0.2)',
-					'rgba(255,0,0,0.2)'
-					],
+				label: 'Average Distance to Ground Truth',
+				backgroundColor:'rgba(170,0,170,0.7)',
+				borderColor:'rgba(170,0,170,0.7)',
 				borderWidth: 1,
 				data: <?php echo json_encode($dist_gt_chart); ?>
 			}]
@@ -497,17 +489,17 @@ View Markers:
 		var barChartDotsCountGT = {
 			labels: DotsCountLabel,
 			datasets: [{
-				label: 'Ground Truth Dots Count',
-				backgroundColor:'rgba(0,0,255,0.2)',
-				borderColor:'rgba(0,0,255,0.2)',
-				borderWidth: 1,
-				data: <?php echo json_encode($dotscount_gt_chart_adm); ?>
-			}, {
 				label: 'User Dots Count',
-				backgroundColor:'rgba(255,0,0,0.2)',
-				borderColor:'rgba(255,0,0,0.2)',
+				backgroundColor:'rgba(255,0,0,0.7)',
+				borderColor:'rgba(255,0,0,0.7)',
 				borderWidth: 1,
 				data: <?php echo json_encode($dotscount_gt_chart_vln); ?>
+			}, {
+				label: 'Ground Truth Dots Count',
+				backgroundColor:'rgba(0,0,255,0.7)',
+				borderColor:'rgba(0,0,255,0.7)',
+				borderWidth: 1,
+				data: <?php echo json_encode($dotscount_gt_chart_adm); ?>
 			}]
 
 		};
